@@ -1,4 +1,6 @@
+import { Title } from './HomePage.styled';
+
 const HomePage = () => {
-  return <div></div>;
+  return <Title>Your most convenient Phonebook</Title>;
 };
 export default HomePage;

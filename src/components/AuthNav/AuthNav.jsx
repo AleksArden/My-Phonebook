@@ -4,10 +4,10 @@ const AuthNav = () => {
   return (
     <AuthList>
       <li>
-        <StyledLink to={'register'}>Register</StyledLink>
+        <StyledLink to="register">Register</StyledLink>
       </li>
       <li>
-        <StyledLink to={'login'}>Log In</StyledLink>
+        <StyledLink to="login">Log In</StyledLink>
       </li>
     </AuthList>
   );

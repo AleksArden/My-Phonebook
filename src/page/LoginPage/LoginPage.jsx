@@ -54,8 +54,8 @@ const LoginPage = () => {
               id="email"
               label="Email Address"
               name="email"
-              autoComplete="email"
               autoFocus
+              color="secondary"
             />
             <TextField
               margin="normal"
@@ -66,9 +66,13 @@ const LoginPage = () => {
               type="password"
               id="password"
               autoComplete="current-password"
+              color="secondary"
             />
 
             <Button
+              style={{
+                backgroundColor: '#800080',
+              }}
               type="submit"
               fullWidth
               variant="contained"
@@ -78,7 +82,14 @@ const LoginPage = () => {
             </Button>
             <Grid container>
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link
+                  href="#"
+                  variant="body2"
+                  style={{
+                    color: '#800080',
+                    textDecoration: 'none',
+                  }}
+                >
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>

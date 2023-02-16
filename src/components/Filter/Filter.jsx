@@ -55,6 +55,7 @@ const Filter = () => {
               name="name"
               autoComplete="off"
               autoFocus
+              color="secondary"
             />
           </Box>
         </Box>

@@ -54,6 +54,7 @@ const AddContactPage = () => {
               name="name"
               autoComplete="off"
               autoFocus
+              color="secondary"
             />
             <TextField
               margin="normal"
@@ -64,9 +65,13 @@ const AddContactPage = () => {
               type="tel"
               id="password"
               autoComplete="off"
+              color="secondary"
             />
 
             <Button
+              style={{
+                backgroundColor: '#800080',
+              }}
               type="submit"
               fullWidth
               variant="contained"

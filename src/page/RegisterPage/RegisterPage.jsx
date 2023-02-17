@@ -35,6 +35,7 @@ const RegisterPage = () => {
   const handleSubmit = event => {
     event.preventDefault();
     dispatch(registerUserThunk(values));
+    setValues(initialState);
   };
 
   return (

@@ -3,24 +3,34 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import Link from '@mui/material/Link';
+import { Link } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useDispatch } from 'react-redux';
+import { logInUserThunk } from 'redux/auth/auth.thunk';
 
 const theme = createTheme();
+const initialState = {
+  email: '',
+  password: '',
+};
 
 const LoginPage = () => {
-  const handleSubmit = event => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+  const [values, setValues] = React.useState(initialState);
+
+  const dispatch = useDispatch();
+
+  const handleChange = ({ target: { value, name } }) => {
+    setValues(prevState => ({ ...prevState, [name]: value }));
+  };
+  const handleSubmit = evt => {
+    evt.preventDefault();
+    dispatch(logInUserThunk(values));
+    setValues(initialState);
   };
 
   return (
@@ -39,7 +49,7 @@ const LoginPage = () => {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            Log in
           </Typography>
           <Box
             component="form"
@@ -54,8 +64,11 @@ const LoginPage = () => {
               id="email"
               label="Email Address"
               name="email"
+              type="email"
               autoFocus
               color="secondary"
+              onChange={handleChange}
+              value={values.email}
             />
             <TextField
               margin="normal"
@@ -67,6 +80,8 @@ const LoginPage = () => {
               id="password"
               autoComplete="current-password"
               color="secondary"
+              onChange={handleChange}
+              value={values.password}
             />
 
             <Button
@@ -78,19 +93,19 @@ const LoginPage = () => {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Sign In
+              Log In
             </Button>
             <Grid container>
               <Grid item>
                 <Link
-                  href="#"
+                  to="/register"
                   variant="body2"
                   style={{
                     color: '#800080',
                     textDecoration: 'none',
                   }}
                 >
-                  {"Don't have an account? Sign Up"}
+                  Don't have an account? Sign Up
                 </Link>
               </Grid>
             </Grid>

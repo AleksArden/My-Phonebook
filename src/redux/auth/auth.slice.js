@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { STATUS } from "constants/constants.status";
 import { persistReducer } from 'redux-persist';
-import { logInUserThunk, registerUserThunk } from "./auth.thunk";
+import { logInUserThunk, logOutUserThunk, registerUserThunk } from "./auth.thunk";
 import storage from "redux-persist/lib/storage";
 
 const authInitState = {
@@ -38,6 +38,17 @@ const authSlice = createSlice({
             })
             .addCase(logInUserThunk.rejected, state => {
                 state.status = STATUS.error;
+            })
+            .addCase(logOutUserThunk.pending, state => {
+                state.status = STATUS.loading;
+            })
+            .addCase(logOutUserThunk.fulfilled, state => {
+                state.user = { name: null, email: null };
+                state.token = null;
+                state.status = STATUS.idle;
+            })
+            .addCase(logOutUserThunk.rejected, state => {
+                state = STATUS.error;
             })
     }
 })

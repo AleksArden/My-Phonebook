@@ -11,31 +11,22 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-import { useState } from 'react';
+import { useReducer } from 'react';
 
 import { registerUserThunk } from 'redux/auth/auth.thunk';
 import { useDispatch } from 'react-redux';
+import { formReducer, initStateRegisterPage } from 'services/reducer';
 
 const theme = createTheme();
 
-const initialState = {
-  name: '',
-  email: '',
-  password: '',
-};
-
 const RegisterPage = () => {
-  const [values, setValues] = useState(initialState);
+  const [state, setState] = useReducer(formReducer, initStateRegisterPage);
   const dispatch = useDispatch();
-
-  const handleChange = ({ target: { value, name } }) => {
-    setValues(prevState => ({ ...prevState, [name]: value }));
-  };
 
   const handleSubmit = event => {
     event.preventDefault();
-    dispatch(registerUserThunk(values));
-    setValues(initialState);
+    dispatch(registerUserThunk(state));
+    setState(initStateRegisterPage);
   };
 
   return (
@@ -73,8 +64,10 @@ const RegisterPage = () => {
                   label="Name"
                   autoFocus
                   color="secondary"
-                  onChange={handleChange}
-                  value={values.name}
+                  onChange={({ target: { value, name } }) =>
+                    setState({ type: name, payload: value })
+                  }
+                  value={state.name}
                 />
               </Grid>
 
@@ -87,8 +80,10 @@ const RegisterPage = () => {
                   type="email"
                   name="email"
                   color="secondary"
-                  onChange={handleChange}
-                  value={values.email}
+                  onChange={({ target: { value, name } }) =>
+                    setState({ type: name, payload: value })
+                  }
+                  value={state.email}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -101,8 +96,10 @@ const RegisterPage = () => {
                   id="password"
                   autoComplete="new-password"
                   color="secondary"
-                  onChange={handleChange}
-                  value={values.password}
+                  onChange={({ target: { value, name } }) =>
+                    setState({ type: name, payload: value })
+                  }
+                  value={state.password}
                 />
               </Grid>
             </Grid>

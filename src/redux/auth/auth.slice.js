@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { STATUS } from "constants/constants.status";
 import { persistReducer } from 'redux-persist';
-import { logInUserThunk, logOutUserThunk, registerUserThunk } from "./auth.thunk";
+import { logInUserThunk, logOutUserThunk, registerUserThunk, refreshUserThunk } from "./auth.thunk";
 import storage from "redux-persist/lib/storage";
 
 const authInitState = {
@@ -11,6 +11,8 @@ const authInitState = {
     },
     token: null,
     status: STATUS.idle,
+    error: null,
+    isRefreshing: false,
 }
 
 const authSlice = createSlice({
@@ -24,9 +26,11 @@ const authSlice = createSlice({
                 state.user = payload.user;
                 state.status = STATUS.success;
                 state.token = payload.token;
+                state.error = null;
             })
-            .addCase(registerUserThunk.rejected, state => {
+            .addCase(registerUserThunk.rejected, (state, { payload }) => {
                 state.status = STATUS.error;
+                state.error = payload;
             })
             .addCase(logInUserThunk.pending, state => {
                 state.status = STATUS.loading;
@@ -35,9 +39,12 @@ const authSlice = createSlice({
                 state.user = payload.user;
                 state.token = payload.token;
                 state.status = STATUS.success;
+                state.error = null;
             })
-            .addCase(logInUserThunk.rejected, state => {
+            .addCase(logInUserThunk.rejected, (state, { payload }) => {
+
                 state.status = STATUS.error;
+                state.error = payload;
             })
             .addCase(logOutUserThunk.pending, state => {
                 state.status = STATUS.loading;
@@ -46,10 +53,28 @@ const authSlice = createSlice({
                 state.user = { name: null, email: null };
                 state.token = null;
                 state.status = STATUS.idle;
+                state.error = null;
             })
-            .addCase(logOutUserThunk.rejected, state => {
-                state = STATUS.error;
+            .addCase(logOutUserThunk.rejected, (state, { payload }) => {
+                state.status = STATUS.error;
+                state.error = payload;
             })
+            .addCase(refreshUserThunk.pending, state => {
+                state.status = STATUS.idle;
+                state.isRefreshing = true;
+            })
+            .addCase(refreshUserThunk.fulfilled, (state, { payload }) => {
+                state.user = payload;
+                state.isRefreshing = false;
+                state.error = null;
+                state.status = STATUS.success;
+            })
+            .addCase(refreshUserThunk.rejected, (state, { payload }) => {
+                state.status = STATUS.error;
+                state.error = payload;
+                state.isRefreshing = false;
+            })
+
     }
 })
 const persistConfig = {

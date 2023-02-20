@@ -7,18 +7,18 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectFilter } from 'redux/filter/filter.selector';
+import { filterAction } from 'redux/filter/filter.slice';
 
 const theme = createTheme();
 
 const Filter = () => {
-  const handleSubmit = event => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      name: data.get('name'),
-    });
+  const filter = useSelector(selectFilter);
+  const dispatch = useDispatch();
+  const handleChange = ({ target: { value } }) => {
+    dispatch(filterAction(value));
   };
-
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
@@ -37,12 +37,7 @@ const Filter = () => {
           <Typography component="h1" variant="h5">
             Contacts
           </Typography>
-          <Box
-            component="form"
-            onSubmit={handleSubmit}
-            noValidate
-            sx={{ mt: 1 }}
-          >
+          <Box component="form" noValidate sx={{ mt: 1 }}>
             <TextField
               style={{
                 width: 359,
@@ -56,6 +51,8 @@ const Filter = () => {
               autoComplete="off"
               autoFocus
               color="secondary"
+              onChange={handleChange}
+              value={filter}
             />
           </Box>
         </Box>

@@ -8,17 +8,38 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Notiflix from 'notiflix';
+import { useReducer } from 'react';
+import { addContactThunk } from 'redux/contacts/contacts.thunk';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectGetContacts } from 'redux/contacts/contacts.selector';
+import { formReducer } from 'services/reducer';
+import { initStateAddContact } from 'services/reducer';
+import { useNavigate } from 'react-router-dom';
 
 const theme = createTheme();
 
 const AddContactPage = () => {
+  const [state, setState] = useReducer(formReducer, initStateAddContact);
+  const items = useSelector(selectGetContacts);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const handleSubmit = event => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      name: data.get('name'),
-      number: data.get('number'),
-    });
+    const hasSameName = items.some(contact => contact.name === state.name);
+
+    hasSameName
+      ? Notiflix.Notify.warning(`${state.name} is already in contacts`, {
+          position: 'center-center',
+          cssAnimationStyle: 'zoom',
+        })
+      : dispatch(addContactThunk(state));
+    navigate('/contacts');
+
+    hasSameName ||
+      (setState({ type: 'name', payload: '' }) && hasSameName) ||
+      setState({ type: 'number', payload: '' });
   };
 
   return (
@@ -55,6 +76,10 @@ const AddContactPage = () => {
               autoComplete="off"
               autoFocus
               color="secondary"
+              onChange={({ target: { value, name } }) =>
+                setState({ type: name, payload: value })
+              }
+              value={state.name}
             />
             <TextField
               margin="normal"
@@ -66,6 +91,10 @@ const AddContactPage = () => {
               id="password"
               autoComplete="off"
               color="secondary"
+              onChange={({ target: { value, name } }) =>
+                setState({ type: name, payload: value })
+              }
+              value={state.number}
             />
 
             <Button

@@ -12,25 +12,20 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useDispatch } from 'react-redux';
 import { logInUserThunk } from 'redux/auth/auth.thunk';
+import { useReducer } from 'react';
+import { formReducer, initStateLoginPage } from 'services/reducer';
 
 const theme = createTheme();
-const initialState = {
-  email: '',
-  password: '',
-};
 
 const LoginPage = () => {
-  const [values, setValues] = React.useState(initialState);
+  const [state, setState] = useReducer(formReducer, initStateLoginPage);
 
   const dispatch = useDispatch();
 
-  const handleChange = ({ target: { value, name } }) => {
-    setValues(prevState => ({ ...prevState, [name]: value }));
-  };
   const handleSubmit = evt => {
     evt.preventDefault();
-    dispatch(logInUserThunk(values));
-    setValues(initialState);
+    dispatch(logInUserThunk(state));
+    setState(initStateLoginPage);
   };
 
   return (
@@ -67,8 +62,10 @@ const LoginPage = () => {
               type="email"
               autoFocus
               color="secondary"
-              onChange={handleChange}
-              value={values.email}
+              onChange={({ target: { value, name } }) =>
+                setState({ type: name, payload: value })
+              }
+              value={state.email}
             />
             <TextField
               margin="normal"
@@ -80,8 +77,10 @@ const LoginPage = () => {
               id="password"
               autoComplete="current-password"
               color="secondary"
-              onChange={handleChange}
-              value={values.password}
+              onChange={({ target: { value, name } }) =>
+                setState({ type: name, payload: value })
+              }
+              value={state.password}
             />
 
             <Button

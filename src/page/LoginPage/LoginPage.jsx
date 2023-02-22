@@ -3,115 +3,109 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { logInUserThunk } from 'redux/auth/auth.thunk';
 import { useReducer } from 'react';
 import { formReducer, initStateLoginPage } from 'services/reducer';
-
-const theme = createTheme();
+import { selectAuthIsLoading, selectAuthToken } from 'redux/auth/auth.selector';
+import LinearColor from 'components/Skeleton/Skeleton';
 
 const LoginPage = () => {
-  const [state, setState] = useReducer(formReducer, initStateLoginPage);
-
+  const [state, reducerDispatch] = useReducer(formReducer, initStateLoginPage);
   const dispatch = useDispatch();
+
+  const handleChange = ({ target: { value, name } }) =>
+    reducerDispatch({ type: name, payload: value });
 
   const handleSubmit = evt => {
     evt.preventDefault();
     dispatch(logInUserThunk(state));
-    setState(initStateLoginPage);
+    reducerDispatch(initStateLoginPage);
   };
 
-  return (
-    <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <Box
-          sx={{
-            marginTop: 8,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}
-        >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Log in
-          </Typography>
-          <Box
-            component="form"
-            onSubmit={handleSubmit}
-            noValidate
-            sx={{ mt: 1 }}
-          >
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              type="email"
-              autoFocus
-              color="secondary"
-              onChange={({ target: { value, name } }) =>
-                setState({ type: name, payload: value })
-              }
-              value={state.email}
-            />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-              color="secondary"
-              onChange={({ target: { value, name } }) =>
-                setState({ type: name, payload: value })
-              }
-              value={state.password}
-            />
+  const token = useSelector(selectAuthToken);
+  if (token) <Navigate to="/contacts" replace />;
 
-            <Button
-              style={{
-                backgroundColor: '#800080',
-              }}
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Log In
-            </Button>
-            <Grid container>
-              <Grid item>
-                <Link
-                  to="/register"
-                  variant="body2"
-                  style={{
-                    color: '#800080',
-                    textDecoration: 'none',
-                  }}
-                >
-                  Don't have an account? Sign Up
-                </Link>
-              </Grid>
+  const isLoadingAuth = useSelector(selectAuthIsLoading);
+
+  return isLoadingAuth ? (
+    <LinearColor />
+  ) : (
+    <Container component="main" maxWidth="xs">
+      <CssBaseline />
+      <Box
+        sx={{
+          marginTop: 8,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
+      >
+        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+          <LockOutlinedIcon />
+        </Avatar>
+        <Typography component="h1" variant="h5" color="secondary">
+          Log in
+        </Typography>
+        <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            id="email"
+            label="Email Address"
+            name="email"
+            type="email"
+            autoFocus
+            color="secondary"
+            onChange={handleChange}
+            value={state.email}
+          />
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            name="password"
+            label="Password"
+            type="password"
+            id="password"
+            autoComplete="current-password"
+            color="secondary"
+            onChange={handleChange}
+            value={state.password}
+          />
+
+          <Button
+            style={{ borderRadius: 15 }}
+            color="secondary"
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}
+          >
+            Log In
+          </Button>
+          <Grid container>
+            <Grid item>
+              <Link
+                to="/register"
+                style={{
+                  color: '#800080',
+                }}
+              >
+                Don't have an account? Sign Up
+              </Link>
             </Grid>
-          </Box>
+          </Grid>
         </Box>
-      </Container>
-    </ThemeProvider>
+      </Box>
+    </Container>
   );
 };
 export default LoginPage;

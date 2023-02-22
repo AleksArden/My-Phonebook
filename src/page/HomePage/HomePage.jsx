@@ -1,6 +1,10 @@
-import { Title } from './HomePage.styled';
+import { Title, Conuainer } from './HomePage.styled';
 
 const HomePage = () => {
-  return <Title>Your most convenient Phonebook</Title>;
+  return (
+    <Conuainer>
+      <Title>Your most convenient Phonebook</Title>
+    </Conuainer>
+  );
 };
 export default HomePage;

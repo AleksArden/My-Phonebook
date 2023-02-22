@@ -2,6 +2,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { privatApi, publicApi, token } from "services/http";
 import { selectAuthToken, selectUser } from "./auth.selector";
+import Notiflix from 'notiflix';
 
 export const registerUserThunk = createAsyncThunk('auth/register', async (values, thunkAPI) => {
     try {
@@ -9,7 +10,14 @@ export const registerUserThunk = createAsyncThunk('auth/register', async (values
         token.set(data.token)
         return data;
     } catch (error) {
+        if (error.response.status === 400) {
+            Notiflix.Notify.failure("This name or email is no longer available", {
+                position: 'center-top',
+                cssAnimationStyle: 'from-top',
+            })
+        }
         return thunkAPI.rejectWithValue(error.message)
+
     }
 })
 
@@ -20,6 +28,12 @@ export const logInUserThunk = createAsyncThunk('auth/login', async (values, thun
         token.set(data.token);
         return data;
     } catch (error) {
+        if (error.response.status === 400) {
+            Notiflix.Notify.failure("Incorrectly entered email or password", {
+                position: 'center-top',
+                cssAnimationStyle: 'from-top',
+            })
+        }
         return thunkAPI.rejectWithValue(error.message)
     }
 })

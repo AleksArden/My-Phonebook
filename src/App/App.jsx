@@ -8,9 +8,10 @@ import RegisterPage from 'page/RegisterPage/RegisterPage';
 import { PublicRoute } from 'components/AuthRouts/PublicRoute';
 import { PrivatRoute } from 'components/AuthRouts/PrivatRoute';
 import { useDispatch, useSelector } from 'react-redux';
+import { selectRefresh } from 'redux/auth/auth.selector';
 import { useEffect } from 'react';
 import { refreshUserThunk } from 'redux/auth/auth.thunk';
-import { selectRefresh } from 'redux/auth/auth.selector';
+import LinearColor from 'components/Skeleton/Skeleton';
 
 export const App = () => {
   const dispatch = useDispatch();
@@ -19,7 +20,7 @@ export const App = () => {
     dispatch(refreshUserThunk());
   }, [dispatch]);
   return isRefreshing ? (
-    <b>Refreshing...</b>
+    <LinearColor />
   ) : (
     <Routes>
       <Route path="/" element={<Layout />}>

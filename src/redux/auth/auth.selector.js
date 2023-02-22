@@ -6,4 +6,4 @@ export const selectUserEmail = state => state.auth.user.email;
 
 export const selectRefresh = state => state.auth.isRefreshing;
 
-export const selectStatus = state => state.auth.status;
+export const selectAuthIsLoading = state => state.auth.isLoading;

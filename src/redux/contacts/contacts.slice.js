@@ -1,61 +1,98 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { STATUS } from "constants/constants.status";
-import { addContactThunk, deleteContactThunk, getContactsThunk } from "./contacts.thunk";
+import { createSlice, isAnyOf } from '@reduxjs/toolkit';
+
+import {
+    addContactThunk,
+    editContactThink,
+    deleteContactThunk,
+    getContactsThunk,
+} from './contacts.thunk';
 
 const contactsSlice = createSlice({
-    name: "contacts",
+    name: 'contacts',
     initialState: {
         items: [],
-        status: STATUS.idle,
+        isLoading: false,
         error: null,
-        // currentContact: null,
+        currentContact: null,
+        isOpenModalDelete: false,
+        isOpenModalEdit: false,
     },
-    // reducers: {
-    //     openContactAction(state, { payload }) {
-    //         state.currentContact = null;
-    //         state.currentContact = payload;
-    //     }
-    // },
+    reducers: {
+        openModalDelete(state, { payload }) {
+            state.isOpenModalDelete = true;
+            state.currentContact = payload;
+        },
+        closeModalDelete(state) {
+            state.isOpenModalDelete = false;
+            state.currentContact = null;
+        },
+        openModalEdit(state, { payload }) {
+            state.isOpenModalEdit = true;
+            state.currentContact = payload;
+        },
+        closeModalEdit(state) {
+            state.isOpenModalEdit = false;
+            state.currentContact = null;
+        },
+    },
     extraReducers: builder => {
-        builder.addCase(getContactsThunk.pending, state => {
-            state.status = STATUS.loading;
-        })
+        builder
             .addCase(getContactsThunk.fulfilled, (state, { payload }) => {
                 state.items = payload;
-                state.status = STATUS.success;
-                state.error = null;
-            })
-            .addCase(getContactsThunk.rejected, (state, { payload }) => {
-                state.error = payload;
-                state.status = STATUS.error;
-            })
-            .addCase(addContactThunk.pending, state => {
-                state.status = STATUS.loading;
             })
             .addCase(addContactThunk.fulfilled, (state, { payload }) => {
-                state.status = STATUS.success;
-                state.error = null;
                 state.items.push(payload);
             })
-            .addCase(addContactThunk.rejected, (state, { payload }) => {
-                state.status = STATUS.error;
-                state.error = payload;
-            })
-            .addCase(deleteContactThunk.pending, state => {
-                state.status = STATUS.loading;
-            })
             .addCase(deleteContactThunk.fulfilled, (state, { payload }) => {
-                state.status = STATUS.success;
-                state.error = null;
-                state.items = state.items.filter(({ id }) => id !== payload.id)
+                state.items = state.items.filter(({ id }) => id !== payload.id);
             })
-            .addCase(deleteContactThunk.rejected, (state, { payload }) => {
-                state.status = STATUS.error;
-                state.error = payload;
+            .addCase(editContactThink.fulfilled, (state, { payload }) => {
+                const idx = state.items.findIndex(({ id }) => id === payload.id);
+                state.items[idx] = payload;
             })
-    }
-})
+            .addMatcher(
+                isAnyOf(
+                    getContactsThunk.pending,
+                    addContactThunk.pending,
+                    deleteContactThunk.pending,
+                    editContactThink.pending
+                ),
+                state => {
+                    state.isLoading = true;
+                }
+            )
+            .addMatcher(
+                isAnyOf(
+                    getContactsThunk.fulfilled,
+                    addContactThunk.fulfilled,
+                    deleteContactThunk.fulfilled,
+                    editContactThink.fulfilled
+                ),
+                state => {
+                    state.error = null;
+                    state.isLoading = false;
+                }
+            )
+            .addMatcher(
+                isAnyOf(
+                    getContactsThunk.rejected,
+                    addContactThunk.rejected,
+                    deleteContactThunk.rejected,
+                    editContactThink.rejected
+                ),
+                (state, { payload }) => {
+                    state.isLoading = false;
+                    state.error = payload;
+                }
+            );
+    },
+});
 
-export const { openContactAction } = contactsSlice.actions
+export const {
+    openModalDelete,
+    closeModalDelete,
+    openModalEdit,
+    closeModalEdit,
+} = contactsSlice.actions;
 
-export const contactsReducer = contactsSlice.reducer
+export const contactsReducer = contactsSlice.reducer;

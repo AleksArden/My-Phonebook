@@ -6,6 +6,12 @@ export const NavList = styled.ul`
   gap: 15px;
 `;
 export const StyledLink = styled(NavLink)`
-  padding-bottom: 24px;
-  padding-top: 24px;
+  padding-bottom: 32px;
+  padding-top: 32px;
+  font-size: 20px;
+  font-weight: 500;
+  color: #800080;
+  &.active {
+    color: #ffff00;
+  }
 `;

@@ -1,17 +1,31 @@
-import ContactsItem from 'components/ContactsItem/ContactsItem';
-
+import ContactsItem from 'components/ContactItem/ContactItem';
+import ModalChange from 'components/ModalEditContact/ModalEditContact';
+import ModalDelete from 'components/ModalDelete/ModalDelete';
 import { useSelector } from 'react-redux';
-import { selectFilterContacts } from 'redux/contacts/contacts.selector';
+import {
+  selectFilterContacts,
+  selectGetContacts,
+} from 'redux/contacts/contacts.selector';
+import { List, Text } from './ContactsList.styled';
 
 const ContactsList = () => {
-  const items = useSelector(selectFilterContacts);
+  const filteredItems = useSelector(selectFilterContacts);
+  const items = useSelector(selectGetContacts);
 
-  return (
-    <ul>
-      {items.map(contact => (
-        <ContactsItem key={contact.id} contact={contact} />
-      ))}
-    </ul>
+  return items.length === 0 ? (
+    <Text>There is no contact in your PHONEBOOK</Text>
+  ) : filteredItems.length === 0 ? (
+    <Text>There is no such contact in your PHONEBOOK</Text>
+  ) : (
+    <>
+      <List>
+        {filteredItems.map(contact => (
+          <ContactsItem key={contact.id} contact={contact} />
+        ))}
+      </List>
+      <ModalDelete />
+      <ModalChange />
+    </>
   );
 };
 export default ContactsList;

@@ -6,58 +6,54 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectFilter } from 'redux/filter/filter.selector';
 import { filterAction } from 'redux/filter/filter.slice';
-
-const theme = createTheme();
+import PersonSearchIcon from '@mui/icons-material/PersonSearch';
 
 const Filter = () => {
   const filter = useSelector(selectFilter);
   const dispatch = useDispatch();
+
   const handleChange = ({ target: { value } }) => {
     dispatch(filterAction(value));
   };
   return (
-    <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <Box
-          sx={{
-            marginTop: 8,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}
-        >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Contacts
-          </Typography>
-          <Box component="form" noValidate sx={{ mt: 1 }}>
-            <TextField
-              style={{
-                width: 359,
-              }}
-              margin="normal"
-              required
-              fullWidth
-              id="name"
-              label="Find contacts by name"
-              name="name"
-              autoComplete="off"
-              autoFocus
-              color="secondary"
-              onChange={handleChange}
-              value={filter}
-            />
-          </Box>
+    <Container component="main" maxWidth="xs" style={{ marginBottom: 36 }}>
+      <CssBaseline />
+      <Box
+        sx={{
+          marginTop: 8,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
+      >
+        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+          <PersonSearchIcon />
+        </Avatar>
+        <Typography component="h1" variant="h5" color="secondary">
+          Contacts
+        </Typography>
+        <Box component="form" noValidate sx={{ mt: 1 }}>
+          <TextField
+            style={{
+              width: 359,
+            }}
+            margin="normal"
+            fullWidth
+            id="name"
+            label="Find contacts by name"
+            name="name"
+            autoComplete="off"
+            autoFocus
+            color="secondary"
+            onChange={handleChange}
+            value={filter}
+          />
         </Box>
-      </Container>
-    </ThemeProvider>
+      </Box>
+    </Container>
   );
 };
 export default Filter;

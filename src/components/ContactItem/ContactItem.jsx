@@ -1,9 +1,11 @@
-import Button from 'components/Button/Button';
 import { useDispatch } from 'react-redux';
-
+import PropTypes from 'prop-types';
+import PersonIcon from '@mui/icons-material/Person';
+import PhoneForwardedIcon from '@mui/icons-material/PhoneForwarded';
+import Button from 'components/Button/Button';
 import { openModalDelete, openModalEdit } from 'redux/contacts/contacts.slice';
 
-import { Item } from './ContactItem.styled';
+import { Item, TextWeight, Text } from './ContactItem.styled';
 
 const ContactsItem = ({ contact: { name, number, id } }) => {
   const dispatch = useDispatch();
@@ -21,11 +23,16 @@ const ContactsItem = ({ contact: { name, number, id } }) => {
         <tbody>
           <tr>
             <Item>
-              <b>{name}</b>
+              <PersonIcon color="secondary" fontSize="small" />
             </Item>
-
             <Item>
-              <p>{number}</p>
+              <TextWeight>{name}</TextWeight>
+            </Item>
+            <Item>
+              <PhoneForwardedIcon color="secondary" fontSize="small" />
+            </Item>
+            <Item>
+              <Text>{number}</Text>
             </Item>
 
             <Item>
@@ -50,3 +57,10 @@ const ContactsItem = ({ contact: { name, number, id } }) => {
   );
 };
 export default ContactsItem;
+ContactsItem.propTypes = {
+  contact: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    number: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
+  }).isRequired,
+};

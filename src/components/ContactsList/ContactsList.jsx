@@ -1,11 +1,12 @@
+import { useSelector } from 'react-redux';
 import ContactsItem from 'components/ContactItem/ContactItem';
 import ModalChange from 'components/ModalEditContact/ModalEditContact';
 import ModalDelete from 'components/ModalDelete/ModalDelete';
-import { useSelector } from 'react-redux';
 import {
   selectFilterContacts,
   selectGetContacts,
 } from 'redux/contacts/contacts.selector';
+
 import { List, Text } from './ContactsList.styled';
 
 const ContactsList = () => {

@@ -11,7 +11,7 @@ export const Wrapper = styled.div`
   align-items: center;
   justify-content: space-between;
   height: 86px;
-  width: 600px;
+  max-width: 720px;
   margin-left: auto;
   margin-right: auto;
 `;

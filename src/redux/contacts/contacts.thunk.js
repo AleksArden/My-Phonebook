@@ -25,7 +25,6 @@ export const getContactsThunk = createAsyncThunk("contacts/get", async (_, { get
 export const addContactThunk = createAsyncThunk("contacts/add", async (contact, thunkAPI) => {
     try {
         const { data } = await privatApi.post("/contacts", contact);
-
         return data
     } catch (error) {
         return thunkAPI.rejectWithValue(error.message);

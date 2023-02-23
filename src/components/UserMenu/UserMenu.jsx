@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectUserEmail } from 'redux/auth/auth.selector';
 import { logOutUserThunk } from 'redux/auth/auth.thunk';
 import Button from 'components/Button/Button';
+
 import { Wrapper, Text } from './UserMenu.styled';
 
 const UserMenu = () => {

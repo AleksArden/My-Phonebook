@@ -12,6 +12,7 @@ export const selectOpenModalDelete = state => state.contacts.isOpenModalDelete;
 
 export const selectOpenModalEdit = state => state.contacts.isOpenModalEdit;
 
+export const selectContactsError = state => state.contacts.error;
 
 
 export const selectFilterContacts = createSelector(
@@ -24,3 +25,5 @@ export const selectFilterContacts = createSelector(
         );
     }
 )
+
+

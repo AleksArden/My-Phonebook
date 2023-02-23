@@ -1,5 +1,4 @@
 import { createSlice, isAnyOf } from '@reduxjs/toolkit';
-
 import {
     addContactThunk,
     editContactThink,
@@ -7,16 +6,18 @@ import {
     getContactsThunk,
 } from './contacts.thunk';
 
+const contactsInitState = {
+    items: [],
+    isLoading: false,
+    error: null,
+    currentContact: null,
+    isOpenModalDelete: false,
+    isOpenModalEdit: false,
+}
+
 const contactsSlice = createSlice({
     name: 'contacts',
-    initialState: {
-        items: [],
-        isLoading: false,
-        error: null,
-        currentContact: null,
-        isOpenModalDelete: false,
-        isOpenModalEdit: false,
-    },
+    initialState: contactsInitState,
     reducers: {
         openModalDelete(state, { payload }) {
             state.isOpenModalDelete = true;

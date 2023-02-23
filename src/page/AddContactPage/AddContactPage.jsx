@@ -1,22 +1,20 @@
 import * as React from 'react';
+import { useReducer } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
-
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-
+import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 import Notiflix from 'notiflix';
-import { useReducer } from 'react';
 import { addContactThunk } from 'redux/contacts/contacts.thunk';
-import { useDispatch, useSelector } from 'react-redux';
 import { selectGetContacts } from 'redux/contacts/contacts.selector';
 import { formReducer } from 'services/reducer';
 import { initStateAddContact } from 'services/reducer';
-import { useNavigate } from 'react-router-dom';
-import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 
 const AddContactPage = () => {
   const [state, reducerDispatch] = useReducer(formReducer, initStateAddContact);
@@ -31,7 +29,6 @@ const AddContactPage = () => {
   const handleSubmit = event => {
     event.preventDefault();
     const hasSameName = items.some(contact => contact.name === state.name);
-
     hasSameName
       ? Notiflix.Notify.warning(`${state.name} is already in contacts`, {
           position: 'center-center',

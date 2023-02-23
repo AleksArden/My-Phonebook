@@ -8,9 +8,10 @@ export const NavList = styled.ul`
 export const StyledLink = styled(NavLink)`
   padding-bottom: 32px;
   padding-top: 32px;
+  color: #800080;
+
   font-size: 20px;
   font-weight: 500;
-  color: #800080;
   &.active {
     color: #ffff00;
   }

@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 
 export const Text = styled.p`
-  font-size: 20px;
-  text-align: center;
   margin-bottom: 35px;
   color: #800080;
+  text-align: center;
+  font-size: 20px;
 `;
 export const List = styled.ul`
   display: flex;

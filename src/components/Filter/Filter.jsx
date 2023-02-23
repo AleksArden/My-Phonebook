@@ -1,15 +1,14 @@
 import * as React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Avatar from '@mui/material/Avatar';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { useDispatch, useSelector } from 'react-redux';
+import PersonSearchIcon from '@mui/icons-material/PersonSearch';
 import { selectFilter } from 'redux/filter/filter.selector';
 import { filterAction } from 'redux/filter/filter.slice';
-import PersonSearchIcon from '@mui/icons-material/PersonSearch';
 
 const Filter = () => {
   const filter = useSelector(selectFilter);

@@ -1,12 +1,9 @@
 import * as React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import Box from '@mui/material/Box';
-
 import Modal from '@mui/material/Modal';
-import { useSelector } from 'react-redux';
 import { selectOpenModalEdit } from 'redux/contacts/contacts.selector';
-import { useDispatch } from 'react-redux';
 import { closeModalEdit } from 'redux/contacts/contacts.slice';
-
 import EditContact from 'components/EditContact/EditContact';
 
 const style = {

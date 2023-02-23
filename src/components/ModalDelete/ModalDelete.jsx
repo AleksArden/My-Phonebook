@@ -1,16 +1,16 @@
 import * as React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import Box from '@mui/material/Box';
-import Button from 'components/Button/Button';
 import Modal from '@mui/material/Modal';
-import { useSelector } from 'react-redux';
+import Button from 'components/Button/Button';
 import {
   selectCurrentContact,
   selectOpenModalDelete,
 } from 'redux/contacts/contacts.selector';
-import { useDispatch } from 'react-redux';
 import { closeModalDelete } from 'redux/contacts/contacts.slice';
-import { Text, List } from './ModalDelete.styled';
 import { deleteContactThunk } from 'redux/contacts/contacts.thunk';
+
+import { Text, List } from './ModalDelete.styled';
 
 const style = {
   position: 'absolute',
@@ -20,7 +20,6 @@ const style = {
   width: 400,
   height: 180,
   bgcolor: 'background.paper',
-
   borderRadius: 15,
   boxShadow: 24,
   p: 4,
@@ -38,7 +37,6 @@ export default function ModalDelete() {
   const handleClose = () => {
     dispatch(closeModalDelete());
   };
-
   return (
     <div>
       <Modal

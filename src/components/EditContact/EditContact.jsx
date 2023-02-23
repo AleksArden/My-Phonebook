@@ -1,65 +1,61 @@
 import * as React from 'react';
+import { useReducer } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
-
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import BorderColorIcon from '@mui/icons-material/BorderColor';
 import Notiflix from 'notiflix';
-import { useReducer } from 'react';
 import { editContactThink } from 'redux/contacts/contacts.thunk';
-import { useDispatch, useSelector } from 'react-redux';
-import { selectCurrentContact } from 'redux/contacts/contacts.selector';
+import {
+  selectCurrentContact,
+  selectGetContacts,
+} from 'redux/contacts/contacts.selector';
 import { formReducer } from 'services/reducer';
 import { closeModalEdit } from 'redux/contacts/contacts.slice';
-import { useNavigate } from 'react-router-dom';
-import BorderColorIcon from '@mui/icons-material/BorderColor';
 
-const theme = createTheme({
-  palette: {
-    primery: {
-      main: '#808080',
-    },
-    secondary: {
-      main: '#800080',
-    },
-    error: {
-      main: '#ffff00',
-    },
-    success: {
-      main: '#adff2f',
-    },
-  },
-});
+
 
 const ChangeContact = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const items = useSelector(selectGetContacts);
   const contact = useSelector(selectCurrentContact);
   const [state, reducerDispatch] = useReducer(formReducer, contact);
 
   const handleChange = ({ target: { value, name } }) => {
     reducerDispatch({ type: name, payload: value });
   };
+
   const handleClose = () => {
     dispatch(closeModalEdit());
   };
+
   const handleSubmit = event => {
     event.preventDefault();
+
     const contact = {
       id: state.id,
       item: { name: state.name, number: state.number },
     };
-    dispatch(editContactThink(contact));
+
+    const hasSameName = items.some(elem => elem.name === state.name);
+    hasSameName
+      ? Notiflix.Notify.warning(`${state.name} is already in contacts`, {
+          position: 'center-center',
+          cssAnimationStyle: 'zoom',
+        })
+      : dispatch(editContactThink(contact));
     dispatch(closeModalEdit());
     navigate('/contacts');
   };
   return (
     contact && (
-      <ThemeProvider theme={theme}>
         <Container component="main" maxWidth="xs">
           <CssBaseline />
           <Box
@@ -108,7 +104,6 @@ const ChangeContact = () => {
                 onChange={handleChange}
                 value={state.number}
               />
-
               <Button
                 style={{
                   color: '#800080',
@@ -148,7 +143,6 @@ const ChangeContact = () => {
             </Box>
           </Box>
         </Container>
-      </ThemeProvider>
     )
   );
 };

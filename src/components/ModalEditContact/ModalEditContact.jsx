@@ -5,6 +5,7 @@ import Modal from '@mui/material/Modal';
 import { selectOpenModalEdit } from 'redux/contacts/contacts.selector';
 import { closeModalEdit } from 'redux/contacts/contacts.slice';
 import EditContact from 'components/EditContact/EditContact';
+import { createPortal } from 'react-dom';
 
 const style = {
   position: 'absolute',
@@ -18,6 +19,7 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
+const modalRoot = document.querySelector('#modal-root');
 
 export default function ModalChange() {
   const dispatch = useDispatch();
@@ -28,7 +30,7 @@ export default function ModalChange() {
     dispatch(closeModalEdit());
   };
 
-  return (
+  return createPortal(
     <div>
       <Modal
         open={open}
@@ -41,6 +43,7 @@ export default function ModalChange() {
           <EditContact />
         </Box>
       </Modal>
-    </div>
+    </div>,
+    modalRoot
   );
 }

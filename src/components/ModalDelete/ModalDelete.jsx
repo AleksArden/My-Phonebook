@@ -11,7 +11,7 @@ import { closeModalDelete } from 'redux/contacts/contacts.slice';
 import { deleteContactThunk } from 'redux/contacts/contacts.thunk';
 
 import { Text, List } from './ModalDelete.styled';
-
+import { createPortal } from 'react-dom';
 const style = {
   position: 'absolute',
   top: '50%',
@@ -24,6 +24,7 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
+const modalRoot = document.querySelector('#modal-root');
 
 export default function ModalDelete() {
   const contact = useSelector(selectCurrentContact);
@@ -37,7 +38,7 @@ export default function ModalDelete() {
   const handleClose = () => {
     dispatch(closeModalDelete());
   };
-  return (
+  return createPortal(
     <div>
       <Modal
         open={open}
@@ -57,6 +58,7 @@ export default function ModalDelete() {
           </List>
         </Box>
       </Modal>
-    </div>
+    </div>,
+    modalRoot
   );
 }

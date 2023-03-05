@@ -28,7 +28,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/AleksArden/phonebook">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+    <img src="images/project.png" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">PHONEBOOK</h3>
@@ -75,24 +75,22 @@ capabilities. The application has pleasant colors.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-<!-- ### Built With
+### Built With
 
-This section should list any major frameworks/libraries used to bootstrap your
-project. Leave any add-ons/plugins for the acknowledgements section. Here are a
-few examples.
+The following frameworks and libraries are used in this project:
 
-- [![Next][next.js]][next-url]
 - [![React][react.js]][react-url]
-- [![Vue][vue.js]][vue-url]
-- [![Angular][angular.io]][angular-url]
-- [![Svelte][svelte.dev]][svelte-url]
-- [![Laravel][laravel.com]][laravel-url]
-- [![Bootstrap][bootstrap.com]][bootstrap-url]
-- [![JQuery][jquery.com]][jquery-url]
+- [![Emotion][emotion]][emotion-url]
+- [![Mui][mui]][mui-url]
+- [![Redux-toolkit][redux-toolkit.js]][redux-toolkit.js-url]
+- [![Axios][axios-http.com]][axios-url]
+- [![Notiflix][notiflix]][notiflix-url]
+- [![Redux-persist][redux-persist]][redux-persist]
+- [![Styled-components.com][styled-components.com]][styled-components-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-<!-- GETTING STARTED -->
+<!-- GETTING STARTED
 
 ## Getting Started
 
@@ -133,7 +131,7 @@ services._
 
 <!-- USAGE EXAMPLES -->
 
-## Usage
+<!-- ## Usage
 
 Use this space to show useful examples of how a project can be used. Additional
 screenshots, code examples and demos work well in this space. You may also link
@@ -141,11 +139,11 @@ to more resources.
 
 _For more examples, please refer to the [Documentation](https://example.com)_
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right">(<a href="#readme-top">back to top</a>)</p> -->
 
 <!-- ROADMAP -->
 
-## Roadmap
+<!-- ## Roadmap
 
 - [x] Add Changelog
 - [x] Add back to top links
@@ -159,11 +157,11 @@ See the
 [open issues](https://github.com/othneildrew/Best-README-Template/issues) for a
 full list of proposed features (and known issues).
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right">(<a href="#readme-top">back to top</a>)</p> -->
 
 <!-- CONTRIBUTING -->
 
-## Contributing
+<!-- ## Contributing
 
 Contributions are what make the open source community such an amazing place to
 learn, inspire, and create. Any contributions you make are **greatly
@@ -179,19 +177,19 @@ create a pull request. You can also simply open an issue with the tag
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right">(<a href="#readme-top">back to top</a>)</p> -->
 
 <!-- LICENSE -->
 
-## License
+<!-- ## License
 
 Distributed under the MIT License. See `LICENSE.txt` for more information.
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right">(<a href="#readme-top">back to top</a>)</p> -->
 
 <!-- CONTACT -->
 
-## Contact
+<!-- ## Contact
 
 Your Name - [@your_twitter](https://twitter.com/your_username) -
 email@example.com
@@ -199,11 +197,11 @@ email@example.com
 Project Link:
 [https://github.com/your_username/repo_name](https://github.com/your_username/repo_name)
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right">(<a href="#readme-top">back to top</a>)</p> -->
 
 <!-- ACKNOWLEDGMENTS -->
 
-## Acknowledgments
+<!-- ## Acknowledgments
 
 Use this space to list resources you find helpful and would like to give credit
 to. I've included a few of my favorites to kick things off!
@@ -217,7 +215,7 @@ to. I've included a few of my favorites to kick things off!
 - [Font Awesome](https://fontawesome.com)
 - [React Icons](https://react-icons.github.io/react-icons/search)
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right">(<a href="#readme-top">back to top</a>)</p> -->
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
@@ -238,28 +236,27 @@ to. I've included a few of my favorites to kick things off!
   https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/aleks-arden/
 [product-screenshot]: images/screenshot.png
-[next.js]:
-  https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
-[next-url]: https://nextjs.org/
 [react.js]:
   https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
 [react-url]: https://reactjs.org/
-[vue.js]:
-  https://img.shields.io/badge/Vue.js-35495E?style=for-the-badge&logo=vuedotjs&logoColor=4FC08D
-[vue-url]: https://vuejs.org/
-[angular.io]:
-  https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white
-[angular-url]: https://angular.io/
-[svelte.dev]:
-  https://img.shields.io/badge/Svelte-4A4A55?style=for-the-badge&logo=svelte&logoColor=FF3E00
-[svelte-url]: https://svelte.dev/
-[laravel.com]:
-  https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white
-[laravel-url]: https://laravel.com
-[bootstrap.com]:
-  https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white
-[bootstrap-url]: https://getbootstrap.com
-[jquery.com]:
-  https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white
-
-[jquery-url]: https://jquery.com -->
+[emotion]:
+  https://img.shields.io/badge/emotion-000000?style=for-the-badge&logo=emotion&logoColor=white
+[emotion-url]: https://emotion.sh/docs/introduction/
+[mui]:
+  https://img.shields.io/badge/mui-35495E?style=for-the-badge&logo=mui&logoColor=4FC08D
+[mui-url]: https://mui.com/
+[redux-toolkit.js]:
+  https://img.shields.io/badge/redux-toolkit.js-DD0031?style=for-the-badge&logo=redux-toolkitdotjs&logoColor=white
+[redux-toolkit.js-url]: https://redux-toolkit.js.org/
+[axios-http.com]:
+  https://img.shields.io/badge/axios-4A4A55?style=for-the-badge&logo=axios&logoColor=FF3E00
+[axios-url]: https://axios-http.com/
+[notiflix]:
+  https://img.shields.io/badge/notiflix-FF2D20?style=for-the-badge&logo=notiflix&logoColor=white
+[notiflix-url]: https://notiflix.github.io/documentation
+[redux-persist]:
+  https://img.shields.io/badge/redux-persist-563D7C?style=for-the-badge&logo=redux-persist&logoColor=white
+[redux-persist-url]: https://github.com/rt2zz/redux-persist
+[styled-components.com]:
+  https://img.shields.io/badge/styled-components-0769AD?style=for-the-badge&logo=styled-components&logoColor=white
+[styled-components-url]: https://styled-components.com/

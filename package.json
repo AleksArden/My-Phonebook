@@ -1,8 +1,8 @@
 {
-  "name": "goit-react-hw-08-phonebook",
+  "name": "my-phonebook",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://AleksArden.github.io/goit-react-hw-08-phonebook/",
+  "homepage": "https://AleksArden.github.io/my-phonebook/",
   "dependencies": {
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",

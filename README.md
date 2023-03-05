@@ -223,16 +223,16 @@ to. I've included a few of my favorites to kick things off!
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
 [contributors-shield]:
-  https://img.shields.io/github/contributors/othneildrew/Best-README-Template.svg?style=for-the-badge
+  https://img.shields.io/github/contributors/AleksArden/phonebook.svg?style=for-the-badge
 [contributors-url]: https://github.com/AleksArden/phonebook/graphs/contributors
 [forks-shield]:
-  https://img.shields.io/github/forks/othneildrew/Best-README-Template.svg?style=for-the-badge
+  https://img.shields.io/github/forks/AleksArden/phonebook.svg?style=for-the-badge
 [forks-url]: https://github.com/AleksArden/phonebook/network/members
 [stars-shield]:
-  https://img.shields.io/github/stars/othneildrew/Best-README-Template.svg?style=for-the-badge
+  https://img.shields.io/github/stars/AleksArden/phonebook.svg?style=for-the-badge
 [stars-url]: https://github.com/AleksArden/phonebook/stargazers
 [issues-shield]:
-  https://img.shields.io/github/issues/othneildrew/Best-README-Template.svg?style=for-the-badge
+  https://img.shields.io/github/issues/AleksArden/phonebook.svg?style=for-the-badge
 [issues-url]: https://github.com/AleksArden/phonebook/issues
 [linkedin-shield]:
   https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555

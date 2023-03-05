@@ -1,8 +1,8 @@
 {
-  "name": "my-phonebook",
+  "name": "phonebook",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://AleksArden.github.io/my-phonebook/",
+  "homepage": "https://AleksArden.github.io/phonebook/",
   "dependencies": {
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",

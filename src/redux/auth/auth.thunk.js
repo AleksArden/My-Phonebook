@@ -6,7 +6,7 @@ import Notiflix from 'notiflix';
 
 export const registerUserThunk = createAsyncThunk('auth/register', async (values, { rejectWithValue }) => {
     try {
-        const { data } = await publicApi.post("/users/signup", values);
+        const { data } = await publicApi.post("/auth/signup", values);
         token.set(data.token)
         return data;
     } catch (error) {
@@ -24,7 +24,7 @@ export const registerUserThunk = createAsyncThunk('auth/register', async (values
 
 export const logInUserThunk = createAsyncThunk('auth/login', async (values, { rejectWithValue }) => {
     try {
-        const { data } = await publicApi.post("/users/login", values);
+        const { data } = await publicApi.post("/auth/signin", values);
 
         token.set(data.token);
         return data
@@ -43,7 +43,7 @@ export const logInUserThunk = createAsyncThunk('auth/login', async (values, { re
 
 export const logOutUserThunk = createAsyncThunk("auth/logout", async (_, { rejectWithValue }) => {
     try {
-        await privatApi.post("/users/logout");
+        await privatApi.post("/auth/logout");
         token.remove()
     } catch (error) {
         return rejectWithValue(error.message)
@@ -59,7 +59,7 @@ export const refreshUserThunk = createAsyncThunk("auth/current", async (_, { get
 
     try {
         token.set(saveToken);
-        const { data } = await privatApi.get("/users/current");
+        const { data } = await privatApi.get("/auth/current");
 
         return data
     } catch (error) {

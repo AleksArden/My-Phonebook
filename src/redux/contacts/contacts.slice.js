@@ -45,10 +45,10 @@ const contactsSlice = createSlice({
                 state.items.push(payload);
             })
             .addCase(deleteContactThunk.fulfilled, (state, { payload }) => {
-                state.items = state.items.filter(({ id }) => id !== payload.id);
+                state.items = state.items.filter(({ _id }) => _id !== payload);
             })
             .addCase(editContactThink.fulfilled, (state, { payload }) => {
-                const idx = state.items.findIndex(({ id }) => id === payload.id);
+                const idx = state.items.findIndex(({ _id }) => _id === payload._id);
                 state.items[idx] = payload;
             })
             .addMatcher(

@@ -21,7 +21,7 @@ const ContactsList = () => {
     <>
       <List>
         {filteredItems.map(contact => (
-          <ContactsItem key={contact.id} contact={contact} />
+          <ContactsItem key={contact._id} contact={contact} />
         ))}
       </List>
       <ModalDelete />

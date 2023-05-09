@@ -7,14 +7,14 @@ import { openModalDelete, openModalEdit } from 'redux/contacts/contacts.slice';
 
 import { Item, TextWeight, Text } from './ContactItem.styled';
 
-const ContactsItem = ({ contact: { name, number, _id } }) => {
+const ContactsItem = ({ contact: { name, number, id } }) => {
   const dispatch = useDispatch();
 
   const handleOpenModalDelete = () => {
-    dispatch(openModalDelete({ name, number, _id }));
+    dispatch(openModalDelete({ name, number, id }));
   };
   const handleOpenModalEdit = () => {
-    dispatch(openModalEdit({ name, number, _id }));
+    dispatch(openModalEdit({ name, number, id }));
   };
 
   return (

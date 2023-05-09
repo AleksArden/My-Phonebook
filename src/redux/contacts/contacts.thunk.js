@@ -16,10 +16,8 @@ export const getContactsThunk = createAsyncThunk("contacts/get", async (_, { get
     try {
         token.set(saveToken);
         const { data } = await privatApi.get("/contacts");
-        console.log(data)
         return data
     } catch (error) {
-        console.log(error)
         return rejectWithValue(error.message)
     }
 })
@@ -35,8 +33,8 @@ export const addContactThunk = createAsyncThunk("contacts/add", async (contact, 
 
 export const deleteContactThunk = createAsyncThunk("contacts/delete", async (contactId, thunkAPI) => {
     try {
-        await privatApi.delete(`/contacts/${contactId}`);
-        return contactId
+        const { data } = await privatApi.delete(`/contacts/${contactId}`);
+        return data
     } catch (error) {
         return thunkAPI.rejectWithValue(error.message);
     }
@@ -44,7 +42,7 @@ export const deleteContactThunk = createAsyncThunk("contacts/delete", async (con
 export const editContactThink = createAsyncThunk("contacts/change", async (contact, thunkAPI) => {
     try {
 
-        const { data } = await privatApi.put(`/contacts/${contact.id}`, contact.item);
+        const { data } = await privatApi.patch(`/contacts/${contact.id}`, contact.item);
         return data
     } catch (error) {
         return thunkAPI.rejectWithValue(error.message);

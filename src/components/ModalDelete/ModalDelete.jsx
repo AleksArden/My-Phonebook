@@ -28,10 +28,10 @@ const modalRoot = document.querySelector('#modal-root');
 
 export default function ModalDelete() {
   const contact = useSelector(selectCurrentContact);
-  console.log(contact);
+
   const open = useSelector(selectOpenModalDelete);
   const handleDelete = () => {
-    dispatch(deleteContactThunk(contact._id));
+    dispatch(deleteContactThunk(contact.id));
     dispatch(closeModalDelete());
   };
   const dispatch = useDispatch();

@@ -1,11 +1,11 @@
 import axios from 'axios';
 
 export const publicApi = axios.create({
-    baseURL: "http://localhost:8080/api/"
+    baseURL: "https://connections-api.herokuapp.com"
 })
 
 export const privatApi = axios.create({
-    baseURL: "http://localhost:8080/api/"
+    baseURL: "https://connections-api.herokuapp.com"
 })
 export const token = {
     set: (token) => {

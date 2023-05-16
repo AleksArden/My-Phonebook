@@ -9,7 +9,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/AleksArden/phonebook">
-    <img src="./src/images/project.png" alt="Logo" width="80" height="80">
+    <img src="./assets/images/project.png" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">PHONEBOOK</h3>
@@ -81,7 +81,7 @@ Project Link:
 [linkedin-shield]:
   https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/aleks-arden/
-[product-screenshot]: ./src/images/screenshot.png
+[product-screenshot]: ./assets/images/screenshot.png
 [react.js]:
   https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
 [react-url]: https://reactjs.org/

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useAppDispatch, useAppSelector } from 'redux/hooks/hooks';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import { selectOpenModalEdit } from 'redux/contacts/contacts.selector';
@@ -22,28 +22,30 @@ const style = {
 const modalRoot = document.querySelector('#modal-root');
 
 export default function ModalChange() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const open = useSelector(selectOpenModalEdit);
+  const open = useAppSelector(selectOpenModalEdit);
 
   const handleClose = () => {
     dispatch(closeModalEdit());
   };
 
-  return createPortal(
-    <div>
-      <Modal
-        open={open}
-        style={{ borderRadius: 15 }}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style} style={{ backgroundColor: '#c0c0c0', height: 380 }}>
-          <EditContact />
-        </Box>
-      </Modal>
-    </div>,
-    modalRoot
-  );
+  return modalRoot
+    ? createPortal(
+        <div>
+          <Modal
+            open={open}
+            style={{ borderRadius: 15 }}
+            onClose={handleClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <Box sx={style} style={{ backgroundColor: '#c0c0c0', height: 380 }}>
+              <EditContact />
+            </Box>
+          </Modal>
+        </div>,
+        modalRoot
+      )
+    : null;
 }

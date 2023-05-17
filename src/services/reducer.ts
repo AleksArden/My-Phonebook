@@ -1,46 +1,32 @@
-interface StateAddContact {
-  name: string;
-  number: string;
-}
-type ActionAddContact = { type: 'name' | 'number'; payload: string };
+import { IContactWithoutId } from 'types/contactsType';
+import {
+  ActionAddContact,
+  ActionLoginPage,
+  ActionRegisterPage,
+} from 'types/reduserTypes';
+import { IUser, IUserWithoutName } from 'types/userTypes';
 
 export const initStateAddContact = {
   name: '',
   number: '',
 };
 export function reducerAddContact(
-  state: StateAddContact,
+  state: IContactWithoutId,
   { type, payload }: ActionAddContact
 ) {
   return (state = { ...state, [type]: payload });
 }
-
-interface StateLoginPage {
-  email: string;
-  password: string;
-}
-type ActionLoginPage = { type: 'email' | 'password'; payload: string };
 
 export const initStateLoginPage = {
   email: '',
   password: '',
 };
 export function reducerLoginPage(
-  state: StateLoginPage,
+  state: IUserWithoutName,
   { type, payload }: ActionLoginPage
 ) {
   return (state = { ...state, [type]: payload });
 }
-
-interface StateRegisterPage {
-  name: string;
-  email: string;
-  password: string;
-}
-type ActionRegisterPage = {
-  type: 'name' | ' email' | 'password';
-  payload: string;
-};
 
 export const initStateRegisterPage = {
   name: '',
@@ -49,7 +35,7 @@ export const initStateRegisterPage = {
 };
 
 export function reduserRegisterPage(
-  state: StateRegisterPage,
+  state: IUser,
   { type, payload }: ActionRegisterPage
 ) {
   return (state = { ...state, [type]: payload });

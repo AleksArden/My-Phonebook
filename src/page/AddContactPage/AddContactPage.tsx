@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useReducer } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useAppDispatch, useAppSelector } from 'redux/hooks/hooks';
 import { useNavigate } from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -11,22 +11,28 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 import Notiflix from 'notiflix';
-import { addContactThunk } from 'redux/contacts/contacts.thunk';
+import { addContact } from 'redux/contacts/contacts.thunk';
 import { selectGetContacts } from 'redux/contacts/contacts.selector';
-import { formReducer } from 'services/reducer';
+import { reducerAddContact } from 'services/reducer';
 import { initStateAddContact } from 'services/reducer';
+import { ActionAddContact } from 'types/reduserTypes';
 
 const AddContactPage = () => {
-  const [state, reducerDispatch] = useReducer(formReducer, initStateAddContact);
-  const items = useSelector(selectGetContacts);
-  const dispatch = useDispatch();
+  const [state, reducerDispatch] = useReducer(
+    reducerAddContact,
+    initStateAddContact
+  );
+  const items = useAppSelector(selectGetContacts);
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const handleChange = ({ target: { value, name } }) => {
-    reducerDispatch({ type: name, payload: value });
+  const handleChange = ({
+    target: { value, name },
+  }: React.ChangeEvent<HTMLInputElement>) => {
+    reducerDispatch({ type: name, payload: value } as ActionAddContact);
   };
 
-  const handleSubmit = event => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const hasSameName = items.some(contact => contact.name === state.name);
     hasSameName
@@ -34,12 +40,11 @@ const AddContactPage = () => {
           position: 'center-center',
           cssAnimationStyle: 'zoom',
         })
-      : dispatch(addContactThunk(state));
+      : dispatch(addContact(state));
     navigate('/contacts');
 
-    hasSameName ||
-      (reducerDispatch({ type: 'name', payload: '' }) && hasSameName) ||
-      reducerDispatch({ type: 'number', payload: '' });
+    hasSameName || reducerDispatch({ type: 'name', payload: '' });
+    hasSameName || reducerDispatch({ type: 'number', payload: '' });
   };
 
   return (
@@ -64,7 +69,6 @@ const AddContactPage = () => {
             margin="normal"
             type="text"
             required
-            pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
             title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
             fullWidth
             id="name"
@@ -79,7 +83,6 @@ const AddContactPage = () => {
           <TextField
             margin="normal"
             required
-            pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
             title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
             fullWidth
             name="number"

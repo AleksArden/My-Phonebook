@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useReducer } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useAppDispatch, useAppSelector } from 'redux/hooks/hooks';
 import { Link, Navigate } from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -11,8 +11,8 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { registerUserThunk } from 'redux/auth/auth.thunk';
-import { formReducer, initStateRegisterPage } from 'services/reducer';
+import { registerUser } from 'redux/auth/auth.thunk';
+import { reduserRegisterPage, initStateRegisterPage } from 'services/reducer';
 import {
   selectAuthError,
   selectAuthIsLoading,
@@ -20,28 +20,30 @@ import {
 } from 'redux/auth/auth.selector';
 import LinearColor from 'components/Skeleton/Skeleton';
 import Error from 'components/Error/Error';
+import { ActionRegisterPage } from 'types/reduserTypes';
 
 const RegisterPage = () => {
   const [state, reducerDispatch] = useReducer(
-    formReducer,
+    reduserRegisterPage,
     initStateRegisterPage
   );
 
-  const dispatch = useDispatch();
-  const handleChange = ({ target: { value, name } }) =>
-    reducerDispatch({ type: name, payload: value });
+  const dispatch = useAppDispatch();
+  const handleChange = ({
+    target: { value, name },
+  }: React.ChangeEvent<HTMLInputElement>) =>
+    reducerDispatch({ type: name, payload: value } as ActionRegisterPage);
 
-  const handleSubmit = event => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    dispatch(registerUserThunk(state));
-    reducerDispatch(initStateRegisterPage);
+    dispatch(registerUser(state));
   };
 
-  const token = useSelector(selectAuthToken);
+  const token = useAppSelector(selectAuthToken);
   if (token) <Navigate to="/contacts" replace />;
 
-  const isLoadingAuth = useSelector(selectAuthIsLoading);
-  const error = useSelector(selectAuthError);
+  const isLoadingAuth = useAppSelector(selectAuthIsLoading);
+  const error = useAppSelector(selectAuthError);
   return (
     <>
       {isLoadingAuth && <LinearColor />}

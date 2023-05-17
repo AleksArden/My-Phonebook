@@ -12,7 +12,7 @@ import { useAppSelector } from 'redux/hooks/hooks';
 
 axios.defaults.baseURL = 'https://connections-api.herokuapp.com';
 
-const setToken = (token: string) => {
+export const setToken = (token: string) => {
   axios.defaults.headers.common.Authorization = `Bearer ${token}`;
 };
 

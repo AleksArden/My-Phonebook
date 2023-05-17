@@ -1,51 +1,77 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import { privatApi } from "services/http";
-import { selectAuthToken } from "redux/auth/auth.selector";
-import { selectUser } from "redux/auth/auth.selector";
-import { token } from "services/http";
+import { createAsyncThunk } from '@reduxjs/toolkit';
+// import { useAppSelector } from 'redux/hooks/hooks';
+// import { selectAuthToken } from 'redux/auth/auth.selector';
+// import { selectUser } from 'redux/auth/auth.selector';
+// import { setToken } from 'redux/auth/auth.thunk';
+import axios from 'axios';
+import { IContact, IContactWithoutId, IEditContact } from 'types/contactsType';
 
-export const getContactsThunk = createAsyncThunk("contacts/get", async (_, { getState, rejectWithValue, fulfillWithValue }) => {
-    const saveToken = selectAuthToken(getState());
-    const saveUser = selectUser(getState())
+export const getContacts = createAsyncThunk(
+  'contacts/get',
+  async (_, { rejectWithValue, fulfillWithValue }) => {
+    // const saveToken = useAppSelector(selectAuthToken);
+    // const saveUser = useAppSelector(selectUser);
 
-
-    if (saveToken === null) {
-        return fulfillWithValue(saveUser);
-    }
+    // if (saveToken === null) {
+    //   return fulfillWithValue(saveUser);
+    // }
 
     try {
-        token.set(saveToken);
-        const { data } = await privatApi.get("/contacts");
-        return data
+      //   setToken(saveToken);
+      const { data } = await axios.get('/contacts');
+      return data as IContact[];
     } catch (error) {
-        return rejectWithValue(error.message)
+      let message;
+      if (error instanceof Error) message = error.message;
+      else message = String(error);
+      return rejectWithValue(message);
     }
-})
+  }
+);
 
-export const addContactThunk = createAsyncThunk("contacts/add", async (contact, thunkAPI) => {
+export const addContact = createAsyncThunk(
+  'contacts/add',
+  async (contact: IContactWithoutId, thunkAPI) => {
     try {
-        const { data } = await privatApi.post("/contacts", contact);
-        return data
+      const { data } = await axios.post('/contacts', contact);
+      return data as IContact;
     } catch (error) {
-        return thunkAPI.rejectWithValue(error.message);
+      let message;
+      if (error instanceof Error) message = error.message;
+      else message = String(error);
+      return thunkAPI.rejectWithValue(message);
     }
-})
+  }
+);
 
-export const deleteContactThunk = createAsyncThunk("contacts/delete", async (contactId, thunkAPI) => {
+export const deleteContact = createAsyncThunk(
+  'contacts/delete',
+  async (contactId: string, thunkAPI) => {
     try {
-        const { data } = await privatApi.delete(`/contacts/${contactId}`);
-        return data
+      const { data } = await axios.delete(`/contacts/${contactId}`);
+      return data as IContact;
     } catch (error) {
-        return thunkAPI.rejectWithValue(error.message);
+      let message;
+      if (error instanceof Error) message = error.message;
+      else message = String(error);
+      return thunkAPI.rejectWithValue(message);
     }
-})
-export const editContactThink = createAsyncThunk("contacts/change", async (contact, thunkAPI) => {
+  }
+);
+export const editContact = createAsyncThunk(
+  'contacts/change',
+  async (contact: IEditContact, thunkAPI) => {
     try {
-
-        const { data } = await privatApi.patch(`/contacts/${contact.id}`, contact.item);
-        return data
+      const { data } = await axios.patch(
+        `/contacts/${contact.id}`,
+        contact.item
+      );
+      return data as IContact;
     } catch (error) {
-        return thunkAPI.rejectWithValue(error.message);
+      let message;
+      if (error instanceof Error) message = error.message;
+      else message = String(error);
+      return thunkAPI.rejectWithValue(message);
     }
-})
-
+  }
+);

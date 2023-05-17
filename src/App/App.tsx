@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useAppDispatch, useAppSelector } from 'redux/hooks/hooks';
 import Layout from 'components/Layout/Layout';
 import HomePage from 'page/HomePage/HomePage';
 import AddContactPage from 'page/AddContactPage/AddContactPage';
@@ -10,16 +10,16 @@ import RegisterPage from 'page/RegisterPage/RegisterPage';
 import { PublicRoute } from 'components/AuthRouts/PublicRoute';
 import { PrivatRoute } from 'components/AuthRouts/PrivatRoute';
 import { selectRefresh } from 'redux/auth/auth.selector';
-import { refreshUserThunk } from 'redux/auth/auth.thunk';
+import { refreshUser } from 'redux/auth/auth.thunk';
 import LinearColor from 'components/Skeleton/Skeleton';
 import Error from 'components/Error/Error';
 
 export const App = () => {
-  const dispatch = useDispatch();
-  const isRefreshing = useSelector(selectRefresh);
+  const dispatch = useAppDispatch();
+  const isRefreshing = useAppSelector(selectRefresh);
 
   useEffect(() => {
-    dispatch(refreshUserThunk());
+    dispatch(refreshUser());
   }, [dispatch]);
 
   return isRefreshing ? (

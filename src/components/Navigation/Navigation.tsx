@@ -1,10 +1,10 @@
-import { useSelector } from 'react-redux';
+import { useAppSelector } from 'redux/hooks/hooks';
 import { selectAuthToken } from 'redux/auth/auth.selector';
 
 import { NavList, StyledLink } from './Navigation.styled';
 
 const Navigation = () => {
-  const token = useSelector(selectAuthToken);
+  const token = useAppSelector(selectAuthToken);
   return (
     <nav>
       <NavList>

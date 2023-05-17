@@ -1,16 +1,16 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useAppDispatch, useAppSelector } from 'redux/hooks/hooks';
 import { selectUserEmail } from 'redux/auth/auth.selector';
-import { logOutUserThunk } from 'redux/auth/auth.thunk';
+import { logOutUser } from 'redux/auth/auth.thunk';
 import Button from 'components/Button/Button';
 
 import { Wrapper, Text } from './UserMenu.styled';
 
 const UserMenu = () => {
-  const email = useSelector(selectUserEmail);
-  const dispatch = useDispatch();
+  const email = useAppSelector(selectUserEmail);
+  const dispatch = useAppDispatch();
 
   const handleLogOut = () => {
-    dispatch(logOutUserThunk());
+    dispatch(logOutUser());
   };
   return (
     <Wrapper>

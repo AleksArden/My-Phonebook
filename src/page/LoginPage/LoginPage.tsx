@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useReducer } from 'react';
 import { Link, Navigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useAppDispatch, useAppSelector } from 'redux/hooks/hooks';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -11,8 +11,8 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { logInUserThunk } from 'redux/auth/auth.thunk';
-import { formReducer, initStateLoginPage } from 'services/reducer';
+import { logInUser } from 'redux/auth/auth.thunk';
+import { reducerLoginPage, initStateLoginPage } from 'services/reducer';
 import {
   selectAuthError,
   selectAuthIsLoading,
@@ -20,25 +20,30 @@ import {
 } from 'redux/auth/auth.selector';
 import LinearColor from 'components/Skeleton/Skeleton';
 import Error from 'components/Error/Error';
+import { ActionLoginPage } from 'types/reduserTypes';
 
 const LoginPage = () => {
-  const [state, reducerDispatch] = useReducer(formReducer, initStateLoginPage);
-  const dispatch = useDispatch();
+  const [state, reducerDispatch] = useReducer(
+    reducerLoginPage,
+    initStateLoginPage
+  );
+  const dispatch = useAppDispatch();
 
-  const handleChange = ({ target: { value, name } }) =>
-    reducerDispatch({ type: name, payload: value });
+  const handleChange = ({
+    target: { value, name },
+  }: React.ChangeEvent<HTMLInputElement>) =>
+    reducerDispatch({ type: name, payload: value } as ActionLoginPage);
 
-  const handleSubmit = evt => {
+  const handleSubmit = (evt: React.FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    dispatch(logInUserThunk(state));
-    reducerDispatch(initStateLoginPage);
+    dispatch(logInUser(state));
   };
 
-  const token = useSelector(selectAuthToken);
+  const token = useAppSelector(selectAuthToken);
   if (token) <Navigate to="/contacts" replace />;
 
-  const isLoadingAuth = useSelector(selectAuthIsLoading);
-  const error = useSelector(selectAuthError);
+  const isLoadingAuth = useAppSelector(selectAuthIsLoading);
+  const error = useAppSelector(selectAuthError);
 
   return (
     <>

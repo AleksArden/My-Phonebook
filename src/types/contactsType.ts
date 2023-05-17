@@ -7,6 +7,6 @@ export interface IContact {
 export type IContactWithoutId = Omit<IContact, 'id'>;
 
 export type IEditContact = {
-  id: Pick<IContact, 'id'>;
+  id: string;
   item: IContactWithoutId;
 };

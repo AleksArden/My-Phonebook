@@ -1,4 +1,4 @@
-import { IContactWithoutId } from 'types/contactsType';
+import { IContact, IContactWithoutId } from 'types/contactsType';
 import {
   ActionAddContact,
   ActionLoginPage,
@@ -37,6 +37,13 @@ export const initStateRegisterPage = {
 export function reduserRegisterPage(
   state: IUser,
   { type, payload }: ActionRegisterPage
+) {
+  return (state = { ...state, [type]: payload });
+}
+
+export function reducerEditContact(
+  state: IContact,
+  { type, payload }: ActionAddContact
 ) {
   return (state = { ...state, [type]: payload });
 }

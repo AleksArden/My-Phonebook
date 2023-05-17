@@ -1,14 +1,18 @@
-import { useDispatch } from 'react-redux';
-import PropTypes from 'prop-types';
+import { useAppDispatch } from 'redux/hooks/hooks';
 import PersonIcon from '@mui/icons-material/Person';
 import PhoneForwardedIcon from '@mui/icons-material/PhoneForwarded';
 import Button from 'components/Button/Button';
 import { openModalDelete, openModalEdit } from 'redux/contacts/contacts.slice';
 
 import { Item, TextWeight, Text } from './ContactItem.styled';
+import { IContact } from 'types/contactsType';
 
-const ContactsItem = ({ contact: { name, number, id } }) => {
-  const dispatch = useDispatch();
+interface IProps {
+  contact: IContact;
+}
+
+const ContactsItem = ({ contact: { name, number, id } }: IProps) => {
+  const dispatch = useAppDispatch();
 
   const handleOpenModalDelete = () => {
     dispatch(openModalDelete({ name, number, id }));
@@ -57,10 +61,3 @@ const ContactsItem = ({ contact: { name, number, id } }) => {
   );
 };
 export default ContactsItem;
-ContactsItem.propTypes = {
-  contact: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    number: PropTypes.string.isRequired,
-    id: PropTypes.string.isRequired,
-  }).isRequired,
-};

@@ -1,6 +1,6 @@
-import { useSelector } from 'react-redux';
+import { useAppSelector } from 'redux/hooks/hooks';
 import ContactsItem from 'components/ContactItem/ContactItem';
-import ModalChange from 'components/ModalEditContact/ModalEditContact';
+import ModalEditContact from 'components/ModalEditContact/ModalEditContact';
 import ModalDelete from 'components/ModalDelete/ModalDelete';
 import {
   selectFilterContacts,
@@ -10,8 +10,8 @@ import {
 import { List, Text } from './ContactsList.styled';
 
 const ContactsList = () => {
-  const filteredItems = useSelector(selectFilterContacts);
-  const items = useSelector(selectGetContacts);
+  const filteredItems = useAppSelector(selectFilterContacts);
+  const items = useAppSelector(selectGetContacts);
 
   return items.length === 0 ? (
     <Text>There is no contact in your PHONEBOOK</Text>
@@ -25,7 +25,7 @@ const ContactsList = () => {
         ))}
       </List>
       <ModalDelete />
-      <ModalChange />
+      <ModalEditContact />
     </>
   );
 };

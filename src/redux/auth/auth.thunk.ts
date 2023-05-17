@@ -1,68 +1,102 @@
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
+import { selectAuthToken, selectUser } from './auth.selector';
+// import Notiflix from 'notiflix';
+import {
+  IUser,
+  IUserResponse,
+  IUserWithoutName,
+  IUserWithoutPassword,
+} from 'types/userTypes';
+import { useAppSelector } from 'redux/hooks/hooks';
 
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import { privatApi, publicApi, token } from "services/http";
-import { selectAuthToken, selectUser } from "./auth.selector";
-import Notiflix from 'notiflix';
+axios.defaults.baseURL = 'https://connections-api.herokuapp.com';
 
-export const registerUserThunk = createAsyncThunk('auth/register', async (values, { rejectWithValue }) => {
+const setToken = (token: string) => {
+  axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+};
+
+export const registerUser = createAsyncThunk(
+  'auth/register',
+  async (values: IUser, { rejectWithValue }) => {
     try {
-        const { data } = await publicApi.post("/users/signup", values);
-        token.set(data.token)
-        return data;
+      const { data } = await axios.post('/users/signup', values);
+      setToken(data.token);
+      return data as IUserResponse;
     } catch (error) {
-        if (error.response.status === 400) {
-            Notiflix.Notify.failure("This name or email is no longer available", {
-                position: 'center-top',
-                cssAnimationStyle: 'from-top',
-            })
-            return rejectWithValue(null)
-        }
-        return rejectWithValue(error.message)
-
+      //   if (error.response.status === 400) {
+      //     Notiflix.Notify.failure('This name or email is no longer available', {
+      //       position: 'center-top',
+      //       cssAnimationStyle: 'from-top',
+      //     });
+      //     return rejectWithValue(null);
+      //   }
+      let message;
+      if (error instanceof Error) message = error.message;
+      else message = String(error);
+      return rejectWithValue(message);
     }
-})
+  }
+);
 
-export const logInUserThunk = createAsyncThunk('auth/login', async (values, { rejectWithValue }) => {
+export const logInUser = createAsyncThunk(
+  'auth/login',
+  async (values: IUserWithoutName, { rejectWithValue }) => {
     try {
-        const { data } = await publicApi.post("/users/login", values);
+      const { data } = await axios.post('/users/login', values);
 
-        token.set(data.token);
-        return data
-
+      setToken(data.token);
+      return data as IUserResponse;
     } catch (error) {
-        if (error.response.status === 400) {
-            Notiflix.Notify.failure("Incorrectly entered email or password", {
-                position: 'center-top',
-                cssAnimationStyle: 'from-top',
-            })
-            return rejectWithValue(null)
-        }
-        return rejectWithValue(error.message)
+      //   if (error.response.status === 400) {
+      //     Notiflix.Notify.failure('Incorrectly entered email or password', {
+      //       position: 'center-top',
+      //       cssAnimationStyle: 'from-top',
+      //     });
+      //     return rejectWithValue(null);
+      //   }
+      let message;
+      if (error instanceof Error) message = error.message;
+      else message = String(error);
+      return rejectWithValue(message);
     }
-})
+  }
+);
 
-export const logOutUserThunk = createAsyncThunk("auth/logout", async (_, { rejectWithValue }) => {
+export const logOutUser = createAsyncThunk(
+  'auth/logout',
+  async (_, { rejectWithValue }) => {
     try {
-        await privatApi.post("/users/logout");
-        token.remove()
+      await axios.post('/users/logout');
+      setToken('');
     } catch (error) {
-        return rejectWithValue(error.message)
+      let message;
+      if (error instanceof Error) message = error.message;
+      else message = String(error);
+      return rejectWithValue(message);
     }
-})
-export const refreshUserThunk = createAsyncThunk("auth/current", async (_, { getState, rejectWithValue, fulfillWithValue }) => {
-    const saveToken = selectAuthToken(getState());
-    const saveUser = selectUser(getState())
+  }
+);
+export const refreshUser = createAsyncThunk(
+  'auth/current',
+  async (_, { rejectWithValue, fulfillWithValue }) => {
+    const saveToken = useAppSelector(selectAuthToken);
+    const saveUser = useAppSelector(selectUser);
 
     if (saveToken === null) {
-        return fulfillWithValue(saveUser);
+      return fulfillWithValue(saveUser);
     }
 
     try {
-        token.set(saveToken);
-        const { data } = await privatApi.get("/users/current");
+      setToken(saveToken);
+      const { data } = await axios.get('/users/current');
 
-        return data
+      return data as IUserWithoutPassword;
     } catch (error) {
-        return rejectWithValue(error.message)
+      let message;
+      if (error instanceof Error) message = error.message;
+      else message = String(error);
+      return rejectWithValue(message);
     }
-})
+  }
+);

@@ -1,11 +1,13 @@
-export const selectAuthToken = state => state.auth.token;
+import { RootState } from 'redux/store';
 
-export const selectUser = state => state.auth.user;
+export const selectAuthToken = (state: RootState) => state.auth.token;
 
-export const selectUserEmail = state => state.auth.user.email;
+export const selectUser = (state: RootState) => state.auth.user;
 
-export const selectRefresh = state => state.auth.isRefreshing;
+export const selectUserEmail = (state: RootState) => state.auth.user.email;
 
-export const selectAuthIsLoading = state => state.auth.isLoading;
+export const selectRefresh = (state: RootState) => state.auth.isRefreshing;
 
-export const selectAuthError = state => state.auth.error;
+export const selectAuthIsLoading = (state: RootState) => state.auth.isLoading;
+
+export const selectAuthError = (state: RootState) => state.auth.error;

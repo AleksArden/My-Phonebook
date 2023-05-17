@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useAppDispatch, useAppSelector } from 'redux/hooks/hooks';
 import Avatar from '@mui/material/Avatar';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -11,10 +11,12 @@ import { selectFilter } from 'redux/filter/filter.selector';
 import { filterAction } from 'redux/filter/filter.slice';
 
 const Filter = () => {
-  const filter = useSelector(selectFilter);
-  const dispatch = useDispatch();
+  const filter = useAppSelector(selectFilter);
+  const dispatch = useAppDispatch();
 
-  const handleChange = ({ target: { value } }) => {
+  const handleChange = ({
+    target: { value },
+  }: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(filterAction(value));
   };
   return (

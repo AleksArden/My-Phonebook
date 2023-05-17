@@ -1,1 +1,3 @@
-export const selectFilter = state => state.filter.filter;
+import { RootState } from 'redux/store';
+
+export const selectFilter = (state: RootState) => state.filter.filter;

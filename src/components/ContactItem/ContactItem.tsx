@@ -1,14 +1,13 @@
 import * as ReactDOM from 'react-dom';
 import { useState } from 'react';
-import { useAppDispatch } from 'redux/hooks/hooks';
 import PersonIcon from '@mui/icons-material/Person';
 import PhoneForwardedIcon from '@mui/icons-material/PhoneForwarded';
 import Button from 'components/Button/Button';
-import { openModalDelete } from 'redux/contacts/contacts.slice';
 import { IContact } from 'types/contactsType';
+import EditContact from 'components/EditContact/EditContact';
+import DeleteContact from 'components/DeleteContact/DeleteContact';
 
 import { Item, TextWeight, Text } from './ContactItem.styled';
-import EditContact from 'components/EditContact/EditContact';
 
 interface IProps {
   contact: IContact;
@@ -16,17 +15,13 @@ interface IProps {
 
 const ContactsItem = ({ contact: { name, number, id } }: IProps) => {
   const [showModalEdit, setShowModalEdit] = useState(false);
-  const dispatch = useAppDispatch();
+  const [showModalDelete, setShowModalDelete] = useState(false);
 
-  const handleOpenModalDelete = () => {
-    dispatch(openModalDelete({ name, number, id }));
-  };
-  const handleOpenModalEdit = () => {
-    // dispatch(openModalEdit({ name, number, id }));
-    setShowModalEdit(true);
-  };
   const handleCloseModalEdit = () => {
     setShowModalEdit(false);
+  };
+  const handleCloseModalDelete = () => {
+    setShowModalDelete(false);
   };
   return (
     <>
@@ -52,7 +47,7 @@ const ContactsItem = ({ contact: { name, number, id } }: IProps) => {
                   type="button"
                   name="Edit"
                   color="success"
-                  onClick={handleOpenModalEdit}
+                  onClick={() => setShowModalEdit(true)}
                   variant="contained"
                 />
               </Item>
@@ -62,7 +57,7 @@ const ContactsItem = ({ contact: { name, number, id } }: IProps) => {
                   type="button"
                   name="Delete"
                   color="error"
-                  onClick={handleOpenModalDelete}
+                  onClick={() => setShowModalDelete(true)}
                   variant="contained"
                 />
               </Item>
@@ -76,6 +71,15 @@ const ContactsItem = ({ contact: { name, number, id } }: IProps) => {
             handleCloseModalEdit={handleCloseModalEdit}
             open={showModalEdit}
             contact={{ name, number, id }}
+          />,
+          document.querySelector('#modal-root')!
+        )}
+      {showModalDelete &&
+        ReactDOM.createPortal(
+          <DeleteContact
+            handleCloseModalDelete={handleCloseModalDelete}
+            open={showModalDelete}
+            id={id}
           />,
           document.querySelector('#modal-root')!
         )}

@@ -1,12 +1,6 @@
-import * as React from 'react';
 import { ReactNode } from 'react';
-import { useAppDispatch, useAppSelector } from 'redux/hooks/hooks';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
-// import { selectOpenModalEdit } from 'redux/contacts/contacts.selector';
-// import { closeModalEdit } from 'redux/contacts/contacts.slice';
-import EditContact from 'components/EditContact/EditContact';
-import { createPortal } from 'react-dom';
 
 const style = {
   position: 'absolute',
@@ -14,7 +8,6 @@ const style = {
   left: '50%',
   transform: 'translate(-50%, -50%)',
   width: 400,
-
   bgcolor: 'background.paper',
   borderRadius: 15,
   boxShadow: 24,
@@ -27,21 +20,13 @@ interface IProps {
   children: ReactNode;
 }
 
-export default function ModalContainer({ children, onClose, open }: IProps) {
-  // const dispatch = useAppDispatch();
-
-  // const open = useAppSelector(selectOpenModalEdit);
-
-  const handleClose = () => {
-    onClose();
-  };
-
+const ModalContainer = ({ children, onClose, open }: IProps) => {
   return (
     <div>
       <Modal
         open={open}
         style={{ borderRadius: 15 }}
-        onClose={handleClose}
+        onClose={() => onClose()}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
@@ -51,4 +36,5 @@ export default function ModalContainer({ children, onClose, open }: IProps) {
       </Modal>
     </div>
   );
-}
+};
+export default ModalContainer;

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useReducer } from 'react';
-import { useAppDispatch, useAppSelector } from 'redux/hooks/hooks';
+import { useAppDispatch } from 'redux/hooks/hooks';
 import { useNavigate } from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -10,15 +10,13 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import BorderColorIcon from '@mui/icons-material/BorderColor';
 import { editContact } from 'redux/contacts/contacts.thunk';
-import { selectCurrentContact } from 'redux/contacts/contacts.selector';
 import { reducerEditContact } from 'services/reducer';
-// import { closeModalEdit } from 'redux/contacts/contacts.slice';
 import { ActionAddContact } from 'types/reduserTypes';
 import { IContact, IEditContact } from 'types/contactsType';
 import Button from 'components/Button/Button';
+import ModalContainer from 'components/Modal/Modal';
 
 import { List } from './EditContact.styled';
-import ModalContainer from 'components/Modal/Modal';
 
 interface IProps {
   handleCloseModalEdit: () => void;
@@ -29,7 +27,6 @@ interface IProps {
 const EditContact = ({ handleCloseModalEdit, open, contact }: IProps) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  // const contact = useAppSelector(selectCurrentContact);
 
   const [state, reducerDispatch] = useReducer(reducerEditContact, contact);
 
@@ -37,10 +34,6 @@ const EditContact = ({ handleCloseModalEdit, open, contact }: IProps) => {
     target: { value, name },
   }: React.ChangeEvent<HTMLInputElement>) => {
     reducerDispatch({ type: name, payload: value } as ActionAddContact);
-  };
-
-  const handleClose = () => {
-    handleCloseModalEdit();
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -118,7 +111,7 @@ const EditContact = ({ handleCloseModalEdit, open, contact }: IProps) => {
                 <Button
                   style={{ width: 115 }}
                   color="primary"
-                  onClick={handleClose}
+                  onClick={() => handleCloseModalEdit()}
                   type="button"
                   variant="contained"
                   name="Cancel"

@@ -13,8 +13,8 @@ export const selectContactIsLoading = (state: RootState) =>
 export const selectOpenModalDelete = (state: RootState) =>
   state.contacts.isOpenModalDelete;
 
-export const selectOpenModalEdit = (state: RootState) =>
-  state.contacts.isOpenModalEdit;
+// export const selectOpenModalEdit = (state: RootState) =>
+//   state.contacts.isOpenModalEdit;
 
 export const selectContactsError = (state: RootState) => state.contacts.error;
 

@@ -11,7 +11,7 @@ import { closeModalDelete } from 'redux/contacts/contacts.slice';
 import { deleteContact } from 'redux/contacts/contacts.thunk';
 import { createPortal } from 'react-dom';
 
-import { Text, List } from './ModalDelete.styled';
+import { Text, List } from './Delete.styled';
 
 const style = {
   position: 'absolute',

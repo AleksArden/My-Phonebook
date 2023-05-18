@@ -13,7 +13,6 @@ interface IContactsState {
   error: unknown;
   currentContact: IContact;
   isOpenModalDelete: boolean;
-  isOpenModalEdit: boolean;
 }
 
 const initialState: IContactsState = {
@@ -22,7 +21,6 @@ const initialState: IContactsState = {
   error: null,
   currentContact: { id: '', name: '', number: '' },
   isOpenModalDelete: false,
-  isOpenModalEdit: false,
 };
 
 const contactsSlice = createSlice({
@@ -38,14 +36,12 @@ const contactsSlice = createSlice({
       state.isOpenModalDelete = false;
       state.currentContact = initialState.currentContact;
     },
-    openModalEdit(state, { payload }: PayloadAction<IContact>) {
-      state.isOpenModalEdit = true;
-      state.currentContact = payload;
-    },
-    closeModalEdit(state) {
-      state.isOpenModalEdit = false;
-      state.currentContact = initialState.currentContact;
-    },
+    // openModalEdit(state, { payload }: PayloadAction<IContact>) {
+    //   state.currentContact = payload;
+    // },
+    // closeModalEdit(state) {
+    //   state.currentContact = initialState.currentContact;
+    // },
   },
 
   extraReducers: builder => {
@@ -116,8 +112,8 @@ const contactsSlice = createSlice({
 export const {
   openModalDelete,
   closeModalDelete,
-  openModalEdit,
-  closeModalEdit,
+  // openModalEdit,
+  // closeModalEdit,
 } = contactsSlice.actions;
 
 export const contactsReducer = contactsSlice.reducer;

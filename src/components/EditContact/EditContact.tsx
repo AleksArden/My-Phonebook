@@ -12,17 +12,24 @@ import BorderColorIcon from '@mui/icons-material/BorderColor';
 import { editContact } from 'redux/contacts/contacts.thunk';
 import { selectCurrentContact } from 'redux/contacts/contacts.selector';
 import { reducerEditContact } from 'services/reducer';
-import { closeModalEdit } from 'redux/contacts/contacts.slice';
+// import { closeModalEdit } from 'redux/contacts/contacts.slice';
 import { ActionAddContact } from 'types/reduserTypes';
-import { IEditContact } from 'types/contactsType';
+import { IContact, IEditContact } from 'types/contactsType';
 import Button from 'components/Button/Button';
 
 import { List } from './EditContact.styled';
+import ModalContainer from 'components/Modal/Modal';
 
-const ChangeContact = () => {
+interface IProps {
+  handleCloseModalEdit: () => void;
+  open: boolean;
+  contact: IContact;
+}
+
+const EditContact = ({ handleCloseModalEdit, open, contact }: IProps) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const contact = useAppSelector(selectCurrentContact);
+  // const contact = useAppSelector(selectCurrentContact);
 
   const [state, reducerDispatch] = useReducer(reducerEditContact, contact);
 
@@ -33,7 +40,7 @@ const ChangeContact = () => {
   };
 
   const handleClose = () => {
-    dispatch(closeModalEdit());
+    handleCloseModalEdit();
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -45,12 +52,12 @@ const ChangeContact = () => {
     };
 
     dispatch(editContact(contact));
-    dispatch(closeModalEdit());
+    handleCloseModalEdit();
     navigate('/contacts');
   };
   return (
-    contact && (
-      <Container component="main" maxWidth="xs">
+    <ModalContainer open={open} onClose={handleCloseModalEdit}>
+      <Container component="main" maxWidth="xs" style={{ height: 316 }}>
         <CssBaseline />
         <Box
           sx={{
@@ -121,7 +128,7 @@ const ChangeContact = () => {
           </Box>
         </Box>
       </Container>
-    )
+    </ModalContainer>
   );
 };
-export default ChangeContact;
+export default EditContact;

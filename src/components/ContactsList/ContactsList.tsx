@@ -1,7 +1,7 @@
 import { useAppSelector } from 'redux/hooks/hooks';
 import ContactsItem from 'components/ContactItem/ContactItem';
-import ModalEditContact from 'components/ModalEditContact/ModalEditContact';
-import ModalDelete from 'components/ModalDelete/ModalDelete';
+
+import ModalDelete from 'components/Delete/Delete';
 import {
   selectFilterContacts,
   selectGetContacts,
@@ -25,7 +25,6 @@ const ContactsList = () => {
         ))}
       </List>
       <ModalDelete />
-      <ModalEditContact />
     </>
   );
 };

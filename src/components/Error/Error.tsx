@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Typography } from '@mui/material';
 
-export default function Error() {
+const Error = () => {
   return (
     <Box
       sx={{
@@ -23,4 +23,5 @@ export default function Error() {
       </Typography>
     </Box>
   );
-}
+};
+export default Error;

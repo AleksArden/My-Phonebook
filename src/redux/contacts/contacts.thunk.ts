@@ -1,23 +1,23 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-// import { useAppSelector } from 'redux/hooks/hooks';
-// import { selectAuthToken } from 'redux/auth/auth.selector';
-// import { selectUser } from 'redux/auth/auth.selector';
-// import { setToken } from 'redux/auth/auth.thunk';
 import axios from 'axios';
+import { selectAuthToken } from 'redux/auth/auth.selector';
+import { setToken } from 'redux/auth/auth.thunk';
+import { store } from 'redux/store';
 import { IContact, IContactWithoutId, IEditContact } from 'types/contactsType';
+import { selectGetContacts } from './contacts.selector';
 
 export const getContacts = createAsyncThunk(
   'contacts/get',
   async (_, { rejectWithValue, fulfillWithValue }) => {
-    // const saveToken = useAppSelector(selectAuthToken);
-    // const saveUser = useAppSelector(selectUser);
+    const saveToken = selectAuthToken(store.getState());
+    const saveContacts = selectGetContacts(store.getState());
 
-    // if (saveToken === null) {
-    //   return fulfillWithValue(saveUser);
-    // }
+    if (saveToken === null) {
+      return fulfillWithValue(saveContacts);
+    }
 
     try {
-      //   setToken(saveToken);
+      setToken(saveToken);
       const { data } = await axios.get('/contacts');
       return data as IContact[];
     } catch (error) {

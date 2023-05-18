@@ -1,14 +1,14 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { selectAuthToken, selectUser } from './auth.selector';
-// import Notiflix from 'notiflix';
+import Notiflix from 'notiflix';
 import {
   IUser,
   IUserResponse,
   IUserWithoutName,
   IUserWithoutPassword,
 } from 'types/userTypes';
-import { useAppSelector } from 'redux/hooks/hooks';
+import { store } from 'redux/store';
 
 axios.defaults.baseURL = 'https://connections-api.herokuapp.com';
 
@@ -24,16 +24,17 @@ export const registerUser = createAsyncThunk(
       setToken(data.token);
       return data as IUserResponse;
     } catch (error) {
-      //   if (error.response.status === 400) {
-      //     Notiflix.Notify.failure('This name or email is no longer available', {
-      //       position: 'center-top',
-      //       cssAnimationStyle: 'from-top',
-      //     });
-      //     return rejectWithValue(null);
-      //   }
+      console.log(error);
       let message;
       if (error instanceof Error) message = error.message;
       else message = String(error);
+      if (message === 'Request failed with status code 400') {
+        Notiflix.Notify.failure('This name or email is no longer available', {
+          position: 'center-top',
+          cssAnimationStyle: 'from-top',
+        });
+        return rejectWithValue(null);
+      }
       return rejectWithValue(message);
     }
   }
@@ -44,20 +45,20 @@ export const logInUser = createAsyncThunk(
   async (values: IUserWithoutName, { rejectWithValue }) => {
     try {
       const { data } = await axios.post('/users/login', values);
-
       setToken(data.token);
       return data as IUserResponse;
     } catch (error) {
-      //   if (error.response.status === 400) {
-      //     Notiflix.Notify.failure('Incorrectly entered email or password', {
-      //       position: 'center-top',
-      //       cssAnimationStyle: 'from-top',
-      //     });
-      //     return rejectWithValue(null);
-      //   }
+      console.log(error);
       let message;
       if (error instanceof Error) message = error.message;
       else message = String(error);
+      if (message === 'Request failed with status code 400') {
+        Notiflix.Notify.failure('Incorrectly entered email or password', {
+          position: 'center-top',
+          cssAnimationStyle: 'from-top',
+        });
+        return rejectWithValue(null);
+      }
       return rejectWithValue(message);
     }
   }
@@ -77,12 +78,12 @@ export const logOutUser = createAsyncThunk(
     }
   }
 );
+
 export const refreshUser = createAsyncThunk(
   'auth/current',
   async (_, { rejectWithValue, fulfillWithValue }) => {
-    const saveToken = useAppSelector(selectAuthToken);
-    const saveUser = useAppSelector(selectUser);
-
+    const saveToken = selectAuthToken(store.getState());
+    const saveUser = selectUser(store.getState());
     if (saveToken === null) {
       return fulfillWithValue(saveUser);
     }
@@ -93,6 +94,7 @@ export const refreshUser = createAsyncThunk(
 
       return data as IUserWithoutPassword;
     } catch (error) {
+      console.log(error);
       let message;
       if (error instanceof Error) message = error.message;
       else message = String(error);

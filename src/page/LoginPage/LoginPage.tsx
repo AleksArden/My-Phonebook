@@ -3,7 +3,7 @@ import { useReducer } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'redux/hooks/hooks';
 import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
+import Button from 'components/Button/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
@@ -94,15 +94,19 @@ const LoginPage = () => {
             />
 
             <Button
-              style={{ borderRadius: 15 }}
+              style={{
+                borderRadius: 15,
+                fontWeight: 500,
+                lineHeight: 1.75,
+                marginTop: 24,
+                marginBottom: 16,
+              }}
               color="secondary"
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Log In
-            </Button>
+              name="Log in"
+            />
             <Grid container>
               <Grid item>
                 <Link

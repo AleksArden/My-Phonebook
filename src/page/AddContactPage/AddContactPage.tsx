@@ -3,7 +3,7 @@ import { useReducer } from 'react';
 import { useAppDispatch, useAppSelector } from 'redux/hooks/hooks';
 import { useNavigate } from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
+import Button from 'components/Button/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
@@ -96,15 +96,19 @@ const AddContactPage = () => {
           />
 
           <Button
-            style={{ borderRadius: 15 }}
+            style={{
+              borderRadius: 15,
+              fontWeight: 500,
+              lineHeight: 1.75,
+              marginTop: 24,
+              marginBottom: 16,
+            }}
             color="secondary"
             type="submit"
             fullWidth
             variant="contained"
-            sx={{ mt: 3, mb: 2 }}
-          >
-            Add Contact
-          </Button>
+            name="Add contact"
+          />
         </Box>
       </Box>
     </Container>

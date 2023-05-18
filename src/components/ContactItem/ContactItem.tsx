@@ -41,17 +41,21 @@ const ContactsItem = ({ contact: { name, number, id } }: IProps) => {
 
             <Item>
               <Button
+                type="button"
                 name="Edit"
                 color="success"
                 onClick={handleOpenModalEdit}
+                variant="contained"
               />
             </Item>
 
             <Item>
               <Button
+                type="button"
                 name="Delete"
                 color="error"
                 onClick={handleOpenModalDelete}
+                variant="contained"
               />
             </Item>
           </tr>

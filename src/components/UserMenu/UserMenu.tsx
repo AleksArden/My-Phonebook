@@ -20,6 +20,7 @@ const UserMenu = () => {
         type="button"
         color="error"
         onClick={handleLogOut}
+        variant="contained"
       />
     </Wrapper>
   );

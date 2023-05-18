@@ -52,10 +52,22 @@ export default function ModalDelete() {
               <Text>Delete contact?</Text>
               <List>
                 <li>
-                  <Button name="Delete" color="error" onClick={handleDelete} />
+                  <Button
+                    type="button"
+                    name="Delete"
+                    color="error"
+                    onClick={handleDelete}
+                    variant="contained"
+                  />
                 </li>
                 <li>
-                  <Button name="Cancel" color="primary" onClick={handleClose} />
+                  <Button
+                    name="Cancel"
+                    color="primary"
+                    onClick={handleClose}
+                    variant="contained"
+                    type="button"
+                  />
                 </li>
               </List>
             </Box>

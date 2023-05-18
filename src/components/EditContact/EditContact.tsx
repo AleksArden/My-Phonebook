@@ -3,7 +3,6 @@ import { useReducer } from 'react';
 import { useAppDispatch, useAppSelector } from 'redux/hooks/hooks';
 import { useNavigate } from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
@@ -16,6 +15,9 @@ import { reducerEditContact } from 'services/reducer';
 import { closeModalEdit } from 'redux/contacts/contacts.slice';
 import { ActionAddContact } from 'types/reduserTypes';
 import { IEditContact } from 'types/contactsType';
+import Button from 'components/Button/Button';
+
+import { List } from './EditContact.styled';
 
 const ChangeContact = () => {
   const navigate = useNavigate();
@@ -94,42 +96,28 @@ const ChangeContact = () => {
               onChange={handleChange}
               value={state.number}
             />
-            <Button
-              style={{
-                color: '#800080',
-                fontWeight: 600,
-                borderRadius: 15,
-                width: '45%',
-                marginTop: 10,
-                marginBottom: 0,
-                marginRight: 28,
-              }}
-              color="success"
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Edit
-            </Button>
-            <Button
-              onClick={handleClose}
-              style={{
-                color: '#800080',
-                fontWeight: 600,
-                borderRadius: 15,
-                width: '45%',
-                marginTop: 10,
-                marginBottom: 0,
-                backgroundColor: '#808080',
-              }}
-              type="button"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 2, mb: 1 }}
-            >
-              Cansel
-            </Button>
+            <List>
+              <li>
+                <Button
+                  style={{ width: 115 }}
+                  color="success"
+                  type="submit"
+                  variant="contained"
+                  name="Edit"
+                />
+              </li>
+
+              <li>
+                <Button
+                  style={{ width: 115 }}
+                  color="primary"
+                  onClick={handleClose}
+                  type="button"
+                  variant="contained"
+                  name="Cancel"
+                />
+              </li>
+            </List>
           </Box>
         </Box>
       </Container>

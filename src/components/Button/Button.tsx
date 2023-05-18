@@ -3,12 +3,23 @@ import ButtonMui from '@mui/material/Button';
 
 interface IProps {
   name: string;
-  color: 'secondary' | 'primary' | 'success' | 'error';
+  color?: 'secondary' | 'primary' | 'success' | 'error';
   type?: 'button' | 'submit';
-  onClick: () => void;
+  onClick?: () => void;
+  variant?: 'contained';
+  fullWidth?: boolean;
+  style?: {};
 }
 
-const Button = ({ name, onClick, color, type }: IProps) => {
+const Button = ({
+  name,
+  onClick,
+  color,
+  type,
+  variant,
+  fullWidth,
+  style,
+}: IProps) => {
   return (
     <ButtonMui
       sx={{
@@ -21,8 +32,10 @@ const Button = ({ name, onClick, color, type }: IProps) => {
       color={color}
       size="large"
       onClick={onClick}
-      variant="contained"
+      variant={variant}
       type={type}
+      fullWidth={fullWidth}
+      style={style}
     >
       <span>{name}</span>
     </ButtonMui>

@@ -8,6 +8,7 @@ export const AuthList = styled.ul`
 export const StyledLink = styled(NavLink)`
   padding-top: 24px;
   padding-bottom: 24px;
+  
   color: #800080;
 
   font-size: 20px;

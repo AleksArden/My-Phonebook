@@ -2,7 +2,9 @@ import styled from 'styled-components';
 
 export const Text = styled.p`
   margin-bottom: 35px;
+
   color: #800080;
+
   text-align: center;
   font-size: 20px;
 `;

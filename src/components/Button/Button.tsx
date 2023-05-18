@@ -12,7 +12,6 @@ const Button = ({ name, onClick, color, type }: IProps) => {
   return (
     <ButtonMui
       sx={{
-        color: 'secondary',
         fontWeight: 600,
         borderRadius: 15,
         lineHeight: 0.9,

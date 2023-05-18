@@ -21,13 +21,14 @@ export const registerUser = createAsyncThunk(
   async (values: IUser, { rejectWithValue }) => {
     try {
       const { data } = await axios.post('/users/signup', values);
+
       setToken(data.token);
       return data as IUserResponse;
     } catch (error) {
-      console.log(error);
       let message;
       if (error instanceof Error) message = error.message;
       else message = String(error);
+
       if (message === 'Request failed with status code 400') {
         Notiflix.Notify.failure('This name or email is no longer available', {
           position: 'center-top',
@@ -35,6 +36,7 @@ export const registerUser = createAsyncThunk(
         });
         return rejectWithValue(null);
       }
+
       return rejectWithValue(message);
     }
   }
@@ -45,13 +47,14 @@ export const logInUser = createAsyncThunk(
   async (values: IUserWithoutName, { rejectWithValue }) => {
     try {
       const { data } = await axios.post('/users/login', values);
+
       setToken(data.token);
       return data as IUserResponse;
     } catch (error) {
-      console.log(error);
       let message;
       if (error instanceof Error) message = error.message;
       else message = String(error);
+
       if (message === 'Request failed with status code 400') {
         Notiflix.Notify.failure('Incorrectly entered email or password', {
           position: 'center-top',
@@ -59,6 +62,7 @@ export const logInUser = createAsyncThunk(
         });
         return rejectWithValue(null);
       }
+
       return rejectWithValue(message);
     }
   }
@@ -69,11 +73,13 @@ export const logOutUser = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       await axios.post('/users/logout');
+
       setToken('');
     } catch (error) {
       let message;
       if (error instanceof Error) message = error.message;
       else message = String(error);
+
       return rejectWithValue(message);
     }
   }
@@ -90,14 +96,17 @@ export const refreshUser = createAsyncThunk(
 
     try {
       setToken(saveToken);
+
       const { data } = await axios.get('/users/current');
 
       return data as IUserWithoutPassword;
     } catch (error) {
       console.log(error);
+
       let message;
       if (error instanceof Error) message = error.message;
       else message = String(error);
+
       return rejectWithValue(message);
     }
   }

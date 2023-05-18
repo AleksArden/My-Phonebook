@@ -10,6 +10,7 @@ export const List = styled.ul`
 export const Text = styled.p`
   text-align: center;
   color: #800080;
+
   font-size: 20px;
   font-weight: 500;
 `;

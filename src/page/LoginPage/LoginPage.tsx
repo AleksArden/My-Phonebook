@@ -28,6 +28,8 @@ const LoginPage = () => {
     initStateLoginPage
   );
   const dispatch = useAppDispatch();
+  const isLoadingAuth = useAppSelector(selectAuthIsLoading);
+  const error = useAppSelector(selectAuthError);
 
   const handleChange = ({
     target: { value, name },
@@ -41,9 +43,6 @@ const LoginPage = () => {
 
   const token = useAppSelector(selectAuthToken);
   if (token) <Navigate to="/contacts" replace />;
-
-  const isLoadingAuth = useAppSelector(selectAuthIsLoading);
-  const error = useAppSelector(selectAuthError);
 
   return (
     <>

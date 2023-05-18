@@ -3,9 +3,9 @@ import PersonIcon from '@mui/icons-material/Person';
 import PhoneForwardedIcon from '@mui/icons-material/PhoneForwarded';
 import Button from 'components/Button/Button';
 import { openModalDelete, openModalEdit } from 'redux/contacts/contacts.slice';
+import { IContact } from 'types/contactsType';
 
 import { Item, TextWeight, Text } from './ContactItem.styled';
-import { IContact } from 'types/contactsType';
 
 interface IProps {
   contact: IContact;

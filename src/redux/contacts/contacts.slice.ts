@@ -28,6 +28,7 @@ const initialState: IContactsState = {
 const contactsSlice = createSlice({
   name: 'contacts',
   initialState,
+
   reducers: {
     openModalDelete(state, { payload }: PayloadAction<IContact>) {
       state.isOpenModalDelete = true;
@@ -46,6 +47,7 @@ const contactsSlice = createSlice({
       state.currentContact = initialState.currentContact;
     },
   },
+  
   extraReducers: builder => {
     builder
       .addCase(

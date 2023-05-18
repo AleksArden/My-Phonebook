@@ -9,9 +9,10 @@ import {
 } from 'redux/contacts/contacts.selector';
 import { closeModalDelete } from 'redux/contacts/contacts.slice';
 import { deleteContact } from 'redux/contacts/contacts.thunk';
+import { createPortal } from 'react-dom';
 
 import { Text, List } from './ModalDelete.styled';
-import { createPortal } from 'react-dom';
+
 const style = {
   position: 'absolute',
   top: '50%',

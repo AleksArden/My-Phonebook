@@ -11,19 +11,21 @@ export const getContacts = createAsyncThunk(
   async (_, { rejectWithValue, fulfillWithValue }) => {
     const saveToken = selectAuthToken(store.getState());
     const saveContacts = selectGetContacts(store.getState());
-
     if (saveToken === null) {
       return fulfillWithValue(saveContacts);
     }
 
     try {
       setToken(saveToken);
+
       const { data } = await axios.get('/contacts');
+
       return data as IContact[];
     } catch (error) {
       let message;
       if (error instanceof Error) message = error.message;
       else message = String(error);
+
       return rejectWithValue(message);
     }
   }
@@ -34,11 +36,13 @@ export const addContact = createAsyncThunk(
   async (contact: IContactWithoutId, thunkAPI) => {
     try {
       const { data } = await axios.post('/contacts', contact);
+
       return data as IContact;
     } catch (error) {
       let message;
       if (error instanceof Error) message = error.message;
       else message = String(error);
+
       return thunkAPI.rejectWithValue(message);
     }
   }
@@ -49,11 +53,13 @@ export const deleteContact = createAsyncThunk(
   async (contactId: string, thunkAPI) => {
     try {
       const { data } = await axios.delete(`/contacts/${contactId}`);
+
       return data as IContact;
     } catch (error) {
       let message;
       if (error instanceof Error) message = error.message;
       else message = String(error);
+
       return thunkAPI.rejectWithValue(message);
     }
   }
@@ -66,11 +72,13 @@ export const editContact = createAsyncThunk(
         `/contacts/${contact.id}`,
         contact.item
       );
+
       return data as IContact;
     } catch (error) {
       let message;
       if (error instanceof Error) message = error.message;
       else message = String(error);
+
       return thunkAPI.rejectWithValue(message);
     }
   }

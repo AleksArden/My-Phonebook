@@ -10,6 +10,7 @@ const initialState: IFilterState = {
 const filterSlice = createSlice({
   name: 'filter',
   initialState,
+
   reducers: {
     filterAction(state, { payload }: PayloadAction<string>) {
       state.filter = payload;

@@ -47,6 +47,7 @@ const authSlice = createSlice({
       .addCase(logOutUser.fulfilled, state => {
         state.user = { name: '', email: '' };
         state.token = null;
+        console.log('1111111');
       })
       .addCase(refreshUser.pending, state => {
         state.isRefreshing = true;
@@ -60,6 +61,7 @@ const authSlice = createSlice({
       )
       .addCase(refreshUser.rejected, state => {
         state.isRefreshing = false;
+        state.token = null;
       })
       .addMatcher(
         isAnyOf(

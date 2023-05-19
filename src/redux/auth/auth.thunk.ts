@@ -101,8 +101,6 @@ export const refreshUser = createAsyncThunk(
 
       return data as IUserWithoutPassword;
     } catch (error) {
-      console.log(error);
-
       let message;
       if (error instanceof Error) message = error.message;
       else message = String(error);

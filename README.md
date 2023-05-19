@@ -45,6 +45,8 @@ capabilities. The application has pleasant colors.
 The following frameworks and libraries are used in this project:
 
 - [![React][react.js]][react-url]
+- [![TypeScript][typescript]][typescript-url]
+- [![Redux][redux]][redux-url]
 - [![Emotion][emotion]][emotion-url]
 - [![Mui][mui]][mui-url]
 - [![Redux-toolkit][redux-toolkit.js]][redux-toolkit.js-url]
@@ -85,6 +87,12 @@ Project Link:
 [react.js]:
   https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
 [react-url]: https://reactjs.org/
+[TypeScript]:
+  https://img.shields.io/badge/TypeScript-1e90ff?style=for-the-badge&logo=typescript&logoColor=f8f8ff
+[typescript-url]: https://www.typescriptlang.org/
+[redux]:
+  https://img.shields.io/badge/Redax-9932cc?style=for-the-badge&logo=redux&logoColor=f8f8ff
+[redux-url]: https://redux.js.org/
 [emotion]:
   https://img.shields.io/badge/emotion-000000?style=for-the-badge&logo=emotion&logoColor=white
 [emotion-url]: https://emotion.sh/docs/introduction/
@@ -92,7 +100,7 @@ Project Link:
   https://img.shields.io/badge/mui-35495E?style=for-the-badge&logo=mui&logoColor=4FC08D
 [mui-url]: https://mui.com/
 [redux-toolkit.js]:
-  https://img.shields.io/badge/redux-toolkit.js-DD0031?style=for-the-badge&logo=redux-toolkitdotjs&logoColor=white
+  https://img.shields.io/badge/reduxjs-toolkit-DD0031?style=for-the-badge&logo=redux-toolkitdotjs&logoColor=white
 [redux-toolkit.js-url]: https://redux-toolkit.js.org/
 [axios-http.com]:
   https://img.shields.io/badge/axios-4A4A55?style=for-the-badge&logo=axios&logoColor=FF3E00
